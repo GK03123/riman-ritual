@@ -1,0 +1,32 @@
+# Dependencias — las reinstala Vercel con npm install. Nunca se versionan.
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Build de Next.js — se regenera en cada deploy.
+/.next/
+/out/
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Producción
+/build
+
+# Depuración
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Variables de entorno locales — llevan secretos, van en el panel de Vercel.
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# Sistema operativo
+.DS_Store
+*.pem
+Thumbs.db

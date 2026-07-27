@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "riman-ritual",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\brega\\riman-ritual",
+      "port": 3100
+    },
+    {
+      "name": "riman-ritual-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start"],
+      "cwd": "C:\\Users\\brega\\riman-ritual",
+      "port": 3100
+    }
+  ]
+}

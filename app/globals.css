@@ -1,0 +1,390 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+/* ─── Fallback métrico de Bodoni Moda ────────────────────────────────
+   Con display:swap, el masthead se pinta primero con la fuente del
+   sistema. Medido en el navegador, Bodoni Moda ocupa un 104,18 % del
+   avance de Georgia al mismo cuerpo; con ese size-adjust el titular no
+   cambia de anchura al cargar la real y el layout no salta. */
+@font-face {
+  font-family: "Bodoni Fallback";
+  src:
+    local("Georgia"),
+    local("Times New Roman"),
+    local("Liberation Serif");
+  size-adjust: 104.18%;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  @apply bg-porcelain text-ink antialiased;
+}
+
+/* Bodoni es una didone: sus cifras elzevirianas descolocan los precios y
+   los numerales de capítulo. Se fuerzan cifras de caja alta y tabulares. */
+.font-display {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+::selection {
+  background: #b69b62;
+  color: #fdfbf7;
+}
+
+/* ─── Foco visible de la casa ────────────────────────────────────────
+   Anillo bronce sobre halo marfil: visible en porcelana, marfil y jade.
+   Solo con teclado (focus-visible), nunca al hacer clic. */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid #96793e;
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+.on-jade :focus-visible,
+[data-theme="jade"] :focus-visible {
+  outline-color: #e7c89a;
+}
+
+/* Sin barras de scroll visibles: el desplazamiento sigue funcionando, pero
+   la línea vertical del navegador y la horizontal del carrusel desaparecen.
+   La navegación de los rieles se hace con flechas y barra de progreso. */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Edge/IE legacy */
+}
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.rail {
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ─── El oro como material ───────────────────────────────────────────
+   Una rampa de metal con banda de luz recortada sobre el texto. Se usa
+   en numerales de capítulo y cifras protagonistas, nunca en párrafos:
+   el recorte elimina el contraste calculable, así que todo lo que lleve
+   .gold-text debe ser decorativo o venir acompañado de texto legible. */
+.gold-text {
+  background-image: linear-gradient(
+    100deg,
+    #7a6229 0%,
+    #b69b62 20%,
+    #f2e3be 42%,
+    #c6a96b 56%,
+    #8a6e32 78%,
+    #6e5726 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* Sobre jade la rampa se aclara para no apagarse contra el fondo. */
+.on-jade .gold-text {
+  background-image: linear-gradient(
+    100deg,
+    #a4873f 0%,
+    #dfc48c 22%,
+    #fbf3dd 45%,
+    #dfc48c 62%,
+    #a4873f 100%
+  );
+}
+
+/* Filete de oro: la línea que separa capítulos. */
+.rule-gold {
+  height: 1px;
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    rgba(150, 121, 62, 0.15) 18%,
+    rgba(242, 227, 190, 0.9) 50%,
+    rgba(150, 121, 62, 0.15) 82%,
+    transparent
+  );
+}
+
+/* ─── Dropcap editorial para la carta de la curadora ──────────────────
+   Calibrada para Bodoni: la didone tiene ojo alto, así que necesita menos
+   línea que una old-style para cuadrar con tres renglones. */
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 5.25rem;
+  line-height: 0.74;
+  padding: 0.5rem 0.7rem 0 0;
+  font-weight: 500;
+  color: #96793e;
+  font-style: italic;
+}
+
+/* ─── Marginalia: el rótulo que corre por el canto de la página ──────
+   El gesto de imprenta que ninguna plantilla trae: una línea de texto
+   girada 90° pegada al borde de una plancha a sangre. Es decorativa por
+   definición, así que siempre va acompañada de la misma información en
+   horizontal dentro del contenido. */
+.marginalia {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ─── Cita destacada: el "segundo vistazo" de un texto largo ────────── */
+.pull-quote {
+  quotes: "\201C" "\201D";
+}
+.pull-quote::before {
+  content: open-quote;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgba(182, 155, 98, 0.55);
+}
+.pull-quote::after {
+  content: close-quote;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgba(182, 155, 98, 0.55);
+}
+
+/* ─── Grain: textura de papel, fija y sin coste de scroll ───────────
+   Se aplica por sección como capa absoluta; nunca sobre contenedores
+   con scroll propio. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0 0.1 0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.grain-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.82 0 0 0 0 0.62 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Lock body scroll when overlay open */
+body.drawer-open,
+body.catalog-open,
+body.bag-open {
+  overflow: hidden;
+}
+
+/* Editorial numbered index */
+.editorial-index {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ─── Firma manuscrita ───────────────────────────────────────────────
+   El trazo se dibuja una vez al entrar. Con reduced-motion aparece ya
+   completo, nunca a medio dibujar. */
+.signature-line {
+  stroke-dasharray: 620;
+  stroke-dashoffset: 620;
+  animation: sig-draw 2.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+@keyframes sig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signature-line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Entrada escalonada de opciones del diagnóstico (CSS puro, para no
+   anidar animaciones de framer dentro de un AnimatePresence mode=wait). */
+@keyframes optionIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Marco de museo para retratos ──────────────────────────────────
+   Doble borde desplazado: hairline pegado a la foto + filete champagne
+   flotando en offset. El gesto "pieza enmarcada" de toda la casa. */
+.museum-frame {
+  position: relative;
+}
+.museum-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #e7e2d8;
+  pointer-events: none;
+  z-index: 2;
+}
+.museum-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(12px, 12px);
+  border: 1px solid rgba(150, 121, 62, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Tratamiento de las fotos ───────────────────────────────────────
+   Los retratos son de estudio, con fondos grises y blancos que chocan
+   con la porcelana. Un velo cálido en multiply los integra en el papel
+   y les da un tono de revista impresa. */
+.photo-warm {
+  position: relative;
+  isolation: isolate;
+}
+/* El filtro hace el trabajo pesado: quita el azul del gris de estudio y
+   lo lleva al mismo eje cálido que la porcelana. */
+.photo-warm img {
+  filter: sepia(0.22) saturate(0.95) contrast(1.05) brightness(1.02);
+}
+/* Y encima, una viñeta de champagne muy leve para que la foto no termine
+   en un rectángulo plano contra el papel. */
+.photo-warm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 85% 75% at 50% 35%,
+    rgba(253, 251, 247, 0.06) 0%,
+    rgba(122, 98, 41, 0.1) 70%,
+    rgba(90, 72, 30, 0.2) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* ─── Cáustica de champagne ──────────────────────────────────────────
+   La luz que atraviesa un frasco de vidrio, hecha con dos manchas de
+   gradiente que respiran. Es el efecto "caro" del hero: cuesta cero
+   bytes de JavaScript y se apaga solo con reduced-motion.
+   Sin filter: blur() a propósito — un blur sobre un elemento que se
+   anima obliga a rasterizar cada frame. Los gradientes ya nacen difusos,
+   así que la animación se queda en transform/opacity, en el compositor. */
+.caustic-layer {
+  position: absolute;
+  inset: -25%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+/* Los bucles decorativos se apagan desde CSS, no desde React: si la clase
+   dependiera de useReducedMotion() el HTML del servidor y el del cliente
+   dejarían de coincidir y se rompería la hidratación. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty,
+  .animate-glowPulse,
+  .animate-shimmer,
+  .animate-marqueeX,
+  .animate-caustic,
+  .animate-caustic-slow {
+    animation: none !important;
+  }
+  .caustic-layer {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+}
+
+/* ─── Subrayado editorial que se dibuja al pasar ───────────────────── */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ─── Presión física en cualquier control ──────────────────────────
+   El botón cede 1px y encoge apenas: feedback táctil sin JS. */
+.press {
+  transition:
+    transform 0.18s cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+.press:active {
+  transform: translateY(1px) scale(0.985);
+}
+@media (prefers-reduced-motion: reduce) {
+  .press,
+  .press:active {
+    transform: none;
+  }
+}
+
+/* ─── Brillo de champagne que cruza un elemento al pasar ───────────── */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(231, 200, 154, 0.28) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.sheen:hover::after {
+  transform: translateX(120%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheen::after {
+    display: none;
+  }
+}
