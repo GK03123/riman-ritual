@@ -53,7 +53,7 @@ export default function BagDrawer() {
         )})`
     );
     const msg = [
-      "¡Hola Eilin! Quiero completar este ritual:",
+      "¡Hola Eilin! Quiero completar esta rutina:",
       ...lines,
       `Total estimado: ${formatPrice(subtotal)}`,
     ].join("\n");
@@ -66,7 +66,7 @@ export default function BagDrawer() {
         <>
           <motion.button
             key="bag-backdrop"
-            aria-label="Cerrar mi ritual"
+            aria-label="Cerrar mi rutina"
             onClick={closeBag}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -82,14 +82,14 @@ export default function BagDrawer() {
             transition={SPRING_PANEL}
             role="dialog"
             aria-modal="true"
-            aria-label="Mi ritual"
+            aria-label="Mi rutina"
             className="fixed bottom-0 right-0 top-0 z-[90] flex w-full max-w-[460px] flex-col bg-ivory shadow-drawer"
           >
             {/* header */}
             <div className="flex items-center justify-between border-b border-hairline px-6 py-4">
               <p className="flex items-center gap-2.5 text-label uppercase text-ink">
                 <Star className="h-4 w-4 text-champagne-deep" strokeWidth={1.6} />
-                Mi ritual
+                Mi rutina
                 {count > 0 && (
                   <span className="editorial-index text-stone-dark">({count})</span>
                 )}
@@ -112,7 +112,7 @@ export default function BagDrawer() {
                 </span>
                 <div>
                   <p className="font-display text-display-sm font-normal">
-                    Tu ritual está vacío
+                    Tu rutina está vacía
                   </p>
                   <p className="mx-auto mt-2 max-w-[260px] text-note text-stone-dark">
                     Guarda productos con el corazón, o responde la consulta y
@@ -225,12 +225,12 @@ export default function BagDrawer() {
                   </AnimatePresence>
                 </ul>
 
-                {/* sugerencia para completar el ritual */}
+                {/* sugerencia para completar la rutina */}
                 {suggestion && (
                   <div className="border-t border-hairline bg-porcelain px-6 py-4">
                     <p className="mb-3 flex items-center gap-1.5 text-micro uppercase text-stone-dark">
                       <Sparkles className="h-3 w-3 text-champagne-deep" />
-                      Completa tu ritual
+                      Completa tu rutina
                     </p>
                     <div className="flex items-center gap-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -250,7 +250,7 @@ export default function BagDrawer() {
                       </div>
                       <button
                         onClick={() => add(suggestion)}
-                        aria-label={`Añadir ${suggestion.name} a mi ritual`}
+                        aria-label={`Añadir ${suggestion.name} a mi rutina`}
                         className="press flex h-10 w-10 shrink-0 items-center justify-center rounded-seal border border-hairline bg-ivory transition-colors hover:border-ink hover:bg-ink hover:text-ivory"
                       >
                         <Plus className="h-4 w-4" />

@@ -4,7 +4,7 @@
 // Antes la foto de producto flotaba al 30 % detrás del texto: los
 // frascos se leían como fantasmas y el bloque parecía un accidente.
 // Ahora la fotografía es una banda de imagen honesta a la izquierda y
-// el cierre vive sobre jade limpio, con la firma de la curadora.
+// el cierre vive sobre jade limpio, con la firma de Eilin.
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
@@ -75,12 +75,12 @@ export default function FinalCTA() {
           </p>
 
           <h2 className="text-balance font-display text-display-lg font-normal">
-            Empieza tu <em className="italic text-champagne-light">ritual</em> esta
+            Empieza tu <em className="italic text-champagne-light">rutina</em> esta
             semana
           </h2>
           <p className="mt-7 max-w-measure text-body text-ivory/70">
             Skincare, cuidado personal y bienestar coreano, en un solo lugar y con
-            mi selección detrás de cada ficha.
+            mi recomendación detrás de cada ficha.
           </p>
 
           <Magnetic strength={0.4}>
@@ -103,7 +103,7 @@ export default function FinalCTA() {
             <p className="text-micro uppercase text-ivory/65">
               Eilin Guependo
               <br />
-              Curadora de la boutique
+              Quien te recomienda por dónde empezar
             </p>
           </div>
         </Reveal>

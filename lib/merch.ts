@@ -10,7 +10,7 @@ const BENEFIT: Record<string, string> = {
   "Body Care": "Cuerpo",
   "Hair Care": "Cabello",
   Supplements: "Bienestar interno",
-  Rituals: "Ritual completo",
+  Rituals: "Rutina completa",
 };
 
 const PHASE: Record<string, string> = {

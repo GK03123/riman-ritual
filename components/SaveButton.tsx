@@ -29,8 +29,8 @@ export default function SaveButton({
       aria-pressed={saved}
       aria-label={
         saved
-          ? `Quitar ${product.name} de mi ritual`
-          : `Guardar ${product.name} en mi ritual`
+          ? `Quitar ${product.name} de mi rutina`
+          : `Guardar ${product.name} en mi rutina`
       }
       whileTap={{ scale: 0.88 }}
       transition={SPRING_TAP}

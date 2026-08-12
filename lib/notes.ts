@@ -1,6 +1,6 @@
 // ─── Notas de Eilin por producto ────────────────────────────────────
 // El API oficial entrega las descripciones en inglés y en tono de
-// catálogo. Esta capa las traduce a la voz de la curadora: qué es,
+// catálogo. Esta capa las traduce a la voz de Eilin: qué es,
 // para quién y por qué está en la boutique. products.ts no se toca
 // (es generado); si un id no tiene nota, la ficha cae con gracia a la
 // descripción original.
@@ -10,13 +10,13 @@ const NOTES: Record<number, string> = {
   52747:
     "La esencia insignia de la casa. Va después de limpiar y antes del sérum, y es el paso que hace que todo lo demás se absorba mejor. Fórmula nanoliposomal pasada hasta siete veces por el Microfluidizer.",
   52745:
-    "Mi crema favorita del catálogo y la que más repito. Rica sin ser pesada, con liposomas que trabajan la firmeza y dejan la piel con esa luz de piel descansada.",
+    "Mi favorita del catálogo y la primera que recomiendo. Rica sin ser pesada, con liposomas que trabajan la firmeza y dejan la piel con esa luz de piel descansada.",
   52743:
     "El tónico que prepara la piel para el tratamiento. Textura de agua con cuerpo, deja el rostro fresco y receptivo, nunca tirante.",
 
   // ─ Dermatology ─
   53140:
-    "El dúo de booster y sérum con el que empiezan casi todas mis clientas. Hidratación profunda, elasticidad y ese acabado jugoso desde la primera semana.",
+    "El dúo de booster y sérum por el que recomiendo empezar. Hidratación profunda, elasticidad y ese acabado jugoso desde las primeras semanas.",
   53142:
     "Crema hipoalergénica de absorción rápida. Es la que recomiendo para sellar cualquier rutina: cómoda, sin residuo y con hidratación de todo el día.",
 
@@ -36,7 +36,7 @@ const NOTES: Record<number, string> = {
   53146:
     "Bruma en dos fases con aceite y vitaminas. La uso para sellar el maquillaje o revivir la piel a media tarde; deja un brillo sano, no grasa.",
   53150:
-    "Mascarilla de colágeno que se funde en la piel mientras duermes o descansas. El gesto de mimo del ritual: piel rebotada a la mañana siguiente.",
+    "Mascarilla de colágeno que se funde en la piel mientras duermes o descansas. El gesto de mimo de la rutina: piel rebotada a la mañana siguiente.",
   53148:
     "Bálsamo en barra para llevar en el bolso. Hidrata zonas puntuales, pómulos, labios y hasta cutículas, sin tocar el maquillaje.",
 
@@ -58,7 +58,7 @@ const NOTES: Record<number, string> = {
 
   // ─ Cuerpo y cabello (BOTALAB) ─
   53170:
-    "Crema corporal de textura batida con aroma Morning Garden. Hidratación intensa sin sensación grasa; el ritual del cuerpo que casi todas descuidamos.",
+    "Crema corporal de textura batida con aroma Morning Garden. Hidratación intensa sin sensación grasa; la rutina del cuerpo que casi todas descuidamos.",
   53168:
     "La misma crema corporal batida, en el aroma Relaxing Sunday: más suave, para la noche. Hidrata profundo y se absorbe rápido.",
   53166:
@@ -76,11 +76,11 @@ const NOTES: Record<number, string> = {
   53172:
     "Probióticos y fibra para el equilibrio digestivo. La piel también se construye desde el intestino; este es el básico silencioso del bienestar.",
 
-  // ─ Rituales y kits ─
+  // ─ Rutinas y kits ─
   53375:
-    "El ritual completo de la casa en ocho pasos: doble limpieza, calma, tratamiento, sellado y SPF. Si quieres la experiencia coreana entera en una sola compra, es esta.",
+    "La rutina completa de la casa en ocho pasos: doble limpieza, calma, tratamiento, sellado y SPF. Si quieres la experiencia coreana entera en una sola compra, es esta.",
   53376:
-    "La rutina Radiansome completa: doble limpieza más tónico, esencia y crema nanoliposomales. El ritual que elijo cuando el objetivo es luminosidad y firmeza.",
+    "La rutina Radiansome completa: doble limpieza más tónico, esencia y crema nanoliposomales. La que recomiendo cuando el objetivo es luminosidad y firmeza.",
   53372:
     "El punto de entrada que más recomiendo: limpieza, el dúo de tratamiento, crema y SPF. Cuatro pasos bien elegidos, nada de más.",
   53374:

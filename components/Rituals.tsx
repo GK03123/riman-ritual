@@ -127,7 +127,7 @@ export default function Rituals() {
             dark
             align="left"
             chapter="06"
-            eyebrow="Los rituales"
+            eyebrow="Las rutinas"
             title={
               <>
                 La rutina entera,
@@ -144,7 +144,7 @@ export default function Rituals() {
               type="button"
               onClick={() => stepBy(-1)}
               disabled={atStart}
-              aria-label="Ver rituales anteriores"
+              aria-label="Ver rutinas anteriores"
               className="press flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors duration-300 enabled:hover:border-champagne enabled:hover:bg-champagne enabled:hover:text-jade disabled:opacity-25"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -153,7 +153,7 @@ export default function Rituals() {
               type="button"
               onClick={() => stepBy(1)}
               disabled={atEnd}
-              aria-label="Ver más rituales"
+              aria-label="Ver más rutinas"
               className="press flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors duration-300 enabled:hover:border-champagne enabled:hover:bg-champagne enabled:hover:text-jade disabled:opacity-25"
             >
               <ChevronRight className="h-5 w-5" />
@@ -238,7 +238,7 @@ export default function Rituals() {
                       {formatPrice(r.price)}
                     </p>
                     <span className="flex items-center gap-1.5 text-micro uppercase text-ivory/70 transition-colors duration-300 group-hover:text-champagne-light">
-                      Ver ritual <ArrowUpRight className="h-3.5 w-3.5" />
+                      Ver rutina <ArrowUpRight className="h-3.5 w-3.5" />
                     </span>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default function Rituals() {
             type="button"
             onClick={() => stepBy(-1)}
             disabled={atStart}
-            aria-label="Ver rituales anteriores"
+            aria-label="Ver rutinas anteriores"
             className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors enabled:hover:border-champagne enabled:hover:text-champagne disabled:opacity-25 sm:hidden"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -277,7 +277,7 @@ export default function Rituals() {
             type="button"
             onClick={() => stepBy(1)}
             disabled={atEnd}
-            aria-label="Ver más rituales"
+            aria-label="Ver más rutinas"
             className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors enabled:hover:border-champagne enabled:hover:text-champagne disabled:opacity-25 sm:hidden"
           >
             <ChevronRight className="h-4 w-4" />

@@ -73,9 +73,9 @@ export default function ProductPage({ params }: Props) {
   // declara aggregateRating ni review porque no tenemos reseñas por
   // producto, y Google penaliza el marcado de valoraciones inventado.
   //
-  // El enlace de la oferta es el de la boutique oficial con el código de
-  // la curadora: es donde ocurre la compra de verdad, así que es la URL
-  // honesta para el Offer.
+  // El enlace de la oferta es el de la tienda oficial con el código de
+  // afiliada de Eilin: es donde ocurre la compra de verdad, así que es la
+  // URL honesta para el Offer.
   const canonical = SITE.url ? `${SITE.url}/producto/${product.id}` : undefined;
 
   const jsonLd = {
@@ -212,7 +212,7 @@ export default function ProductPage({ params }: Props) {
             {product.kit.length > 0 && (
               <div className="border-t border-hairline pt-6">
                 <p className="mb-3 flex items-center gap-2 text-label uppercase text-ink">
-                  <PackageOpen className="h-3.5 w-3.5" /> Contenido del ritual
+                  <PackageOpen className="h-3.5 w-3.5" /> Contenido de la rutina
                 </p>
                 <ul className="space-y-1.5">
                   {product.kit.map((item) => (
@@ -250,8 +250,8 @@ export default function ProductPage({ params }: Props) {
                 </li>
               </ul>
               <p className="text-xs leading-relaxed text-stone-dark">
-                El enlace abre la ficha oficial de RIMAN con el código de la
-                curadora. El precio y la disponibilidad se confirman ahí al
+                El enlace abre la ficha oficial de RIMAN con mi código de
+                afiliada. El precio y la disponibilidad se confirman ahí al
                 momento de la compra.
               </p>
             </div>
@@ -262,7 +262,7 @@ export default function ProductPage({ params }: Props) {
         {complements.length > 0 && (
           <section className="mt-16 border-t border-hairline pt-10 lg:mt-24">
             <h2 className="mb-8 font-display text-display-sm font-normal">
-              Complementa el <em className="italic text-champagne-deep">ritual</em>
+              Complementa tu <em className="italic text-champagne-deep">rutina</em>
             </h2>
             <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
               {complements.map((c) => (

@@ -28,13 +28,14 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { productUrl } from "@/lib/site";
+import { ArrowUpRight, Instagram } from "lucide-react";
+import { instagramHandle, productUrl } from "@/lib/site";
 import { BESTSELLERS } from "@/lib/products";
 import { useProductDrawer } from "@/lib/product-drawer";
 import { formatPrice } from "@/lib/utils";
 import { EASE } from "@/lib/motion";
 import Magnetic from "./motion/Magnetic";
+import InstagramLink from "./InstagramLink";
 import SaveButton from "./SaveButton";
 
 const heroProduct = BESTSELLERS[0];
@@ -66,7 +67,7 @@ export default function Hero() {
   const coverFlag = (
     <div className="rounded-vitrine border border-champagne/30 bg-ivory/95 p-4 shadow-flag backdrop-blur-sm sm:p-5">
       <p className="mb-3 flex items-baseline justify-between gap-3 text-micro uppercase text-stone-dark">
-        Lo más pedido de la casa
+        Lo que más me piden
         {/* Decorativo, como todos los numerales de la casa: .gold-text
             recorta el color sobre una rampa metálica y la banda clara del
             oro queda en 1,2:1 sobre marfil. La información ya la da el
@@ -117,7 +118,7 @@ export default function Hero() {
         rel="noopener sponsored"
         className="press group mt-3 flex min-h-[44px] items-center justify-between gap-2 border-t border-hairline pt-3 text-micro uppercase tracking-wide2 text-ink transition-colors hover:text-champagne-deep"
       >
-        Comprar en la boutique
+        Comprar en RIMAN
         <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </a>
     </div>
@@ -136,14 +137,25 @@ export default function Hero() {
       </div>
 
       <motion.div style={{ opacity: fadeOut }} className="relative">
-        {/* Folio: la línea de datos de una portada impresa */}
+        {/* Folio: la línea de datos de una portada impresa. En el centro,
+            donde una revista imprime el crédito de quien firma el número,
+            va el arroba de Eilin. Es el primer sitio de la página donde
+            queda claro que detrás de esto hay una persona con cuenta
+            abierta, y de paso es un enlace real desde el primer pintado.
+            En móvil cae el rótulo de categoría: tres líneas de 10 px con
+            tracking de 0,22em no caben en 375 px. */}
         <motion.div
           {...fade(0.1)}
-          className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 pt-6 text-micro uppercase text-champagne-bronze sm:px-6"
+          className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 pt-4 text-micro uppercase text-champagne-bronze sm:px-6"
         >
           <span className="editorial-index">Nº 01 · La portada</span>
-          <span className="hidden sm:block">Selección de la temporada</span>
-          <span className="editorial-index">Skincare coreano</span>
+          <InstagramLink className="link-underline -my-3 inline-flex min-h-[44px] items-center gap-1.5 py-3 transition-colors hover:text-champagne-deep">
+            <Instagram aria-hidden className="h-3.5 w-3.5" strokeWidth={1.6} />
+            <span>{instagramHandle}</span>
+          </InstagramLink>
+          <span className="editorial-index hidden sm:block">
+            Skincare coreano
+          </span>
         </motion.div>
 
         {/* Masthead: el nombre como cabecera. El wrapper lleva el
@@ -182,21 +194,24 @@ export default function Hero() {
                 className="mb-5 flex items-center gap-3 text-label uppercase text-champagne-bronze"
               >
                 <span className="h-px w-10 bg-champagne-deep" aria-hidden />
-                Curaduría personal
+                En primera persona
               </motion.p>
+              {/* El titular estaba escrito desde la autoridad: "la piel pide"
+                  habla por la piel de quien lee. En primera persona dice lo
+                  mismo sin recetarle nada a nadie, que es justo el giro. */}
               <motion.h1
                 {...fade(0.4)}
                 className="text-balance font-display text-display-md font-normal"
               >
-                La piel no pide más pasos. Pide los{" "}
+                No uso más pasos. Uso los{" "}
                 <em className="italic text-champagne-deep">correctos</em>.
               </motion.h1>
               <motion.p
                 {...fade(0.47)}
                 className="mt-5 max-w-measure text-note text-stone-dark"
               >
-                Cada producto de esta boutique pasó por mi cara antes que por tu
-                ritual. Lo que no me funcionó, no está.
+                Aquí está el catálogo entero de RIMAN. Yo te digo por dónde
+                empezar y por qué.
               </motion.p>
               <motion.div {...fade(0.54)} className="mt-8 flex flex-wrap items-center gap-5">
                 <Magnetic strength={0.35}>
@@ -237,9 +252,9 @@ export default function Hero() {
                 </p>
                 <ul>
                   {[
-                    { n: "02", label: "Lo más pedido de la casa", href: "#bestsellers" },
-                    { n: "03", label: "La consulta, en tres respuestas", href: "#concerns" },
-                    { n: "06", label: "Los rituales completos", href: "#rituales" },
+                    { n: "02", label: "Lo que más me piden", href: "#bestsellers" },
+                    { n: "03", label: "Por dónde empezar", href: "#concerns" },
+                    { n: "04", label: "Quién está detrás", href: "#eilin" },
                   ].map((line) => (
                     <li key={line.n} className="border-b border-hairline last:border-0">
                       <a
@@ -280,7 +295,7 @@ export default function Hero() {
                 aria-hidden
                 className="marginalia absolute -left-7 top-0 hidden text-micro uppercase tracking-wide2 text-stone-dark lg:block"
               >
-                Eilin, la curadora
+                Eilin Guependo
               </figcaption>
 
               <motion.div
@@ -291,7 +306,7 @@ export default function Hero() {
               >
                 <Image
                   src="/founder/eilin-portada.jpg"
-                  alt="Eilin Guependo, fundadora y curadora de la boutique"
+                  alt="Retrato de Eilin Guependo, que recomienda y ayuda a elegir dentro del catálogo de esta página"
                   width={800}
                   height={1000}
                   priority
@@ -304,7 +319,7 @@ export default function Hero() {
                   gutter donde alojarlo. */}
               <p className="mt-4 flex items-center justify-center gap-3 text-micro uppercase text-stone-dark lg:hidden">
                 <span className="h-px w-8 bg-champagne-deep/50" aria-hidden />
-                Eilin, la curadora
+                Eilin Guependo
                 <span className="h-px w-8 bg-champagne-deep/50" aria-hidden />
               </p>
 

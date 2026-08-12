@@ -18,7 +18,7 @@ export default function ProductDrawer() {
   const lastFocus = useRef<HTMLElement | null>(null);
   const wasOpen = useRef(false);
 
-  // Al cambiar de producto (abrir, o saltar desde "Complementa el ritual")
+  // Al cambiar de producto (abrir, o saltar desde "Complementa la rutina")
   // la galería vuelve a la primera imagen.
   useEffect(() => {
     setActiveImg(0);
@@ -155,7 +155,7 @@ export default function ProductDrawer() {
                     </p>
                   </div>
 
-                  {/* La nota de la curadora en español; la descripción
+                  {/* La nota de Eilin en español; la descripción
                       original del API queda como letra pequeña honesta. */}
                   {note ? (
                     <div className="border-l-2 border-champagne/50 pl-4">
@@ -185,7 +185,7 @@ export default function ProductDrawer() {
                   {product.kit.length > 0 && (
                     <div className="border-t border-hairline pt-5">
                       <p className="mb-3 flex items-center gap-2 text-label uppercase text-ink">
-                        <PackageOpen className="h-3.5 w-3.5" /> Contenido del ritual
+                        <PackageOpen className="h-3.5 w-3.5" /> Contenido de la rutina
                       </p>
                       <ul className="space-y-1.5">
                         {product.kit.map((item) => (
@@ -229,7 +229,7 @@ export default function ProductDrawer() {
               {complements.length > 0 && (
                 <div className="border-t border-hairline bg-porcelain px-6 py-8 sm:px-8">
                   <p className="mb-5 text-label uppercase text-stone-dark">
-                    Complementa el ritual
+                    Complementa tu rutina
                   </p>
                   <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
                     {complements.map((c) => (

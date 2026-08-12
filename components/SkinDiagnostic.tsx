@@ -185,9 +185,16 @@ export default function SkinDiagnostic() {
       {/* `relative` para que el contenido quede por encima de la capa de
           grano, que se pinta como ::after de la sección. */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        {/* Cabecera a dos columnas: el capítulo a la izquierda y la voz de
-            Eilin a la derecha, para que la consulta empiece con una
-            persona y no con un formulario. */}
+        {/* Cabecera a dos columnas: el capítulo a la izquierda y quién
+            responde a la derecha, para que esto empiece con una persona y
+            no con un formulario.
+            La frase en primera persona era el pie de una foto de 64 px y
+            ahí no la leía nadie. Ahora es el titular del capítulo, que es
+            el sitio que le corresponde: es la promesa entera de la página.
+            La entradilla que había debajo explicaba el mecanismo antes de
+            que nadie hubiera decidido usarlo, así que se fue; lo único que
+            de verdad quitaba fricción (que no piden datos y que es corto)
+            baja al pie del retrato, junto a la cara de quien responde. */}
         <div className="grid items-end gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
           <SectionHeading
             chapter="03"
@@ -196,31 +203,42 @@ export default function SkinDiagnostic() {
             className="mb-0 sm:mb-0"
             title={
               <>
-                Tu ritual, en{" "}
-                <em className="italic text-champagne-deep">tres respuestas</em>
+                Dime cómo está tu piel y te digo{" "}
+                <em className="italic text-champagne-deep">
+                  por dónde empezar
+                </em>
               </>
             }
-            subtitle="Respondes tres preguntas y te armo la rutina con piezas del catálogo: el porqué de cada paso y el precio completo. Sin registros ni correos."
           />
 
           <Reveal delay={0.12}>
             <figure className="flex items-start gap-4 border-l border-champagne/40 pl-5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/founder/eilin-consulta.jpg"
-                alt="Eilin Guependo"
-                width={128}
-                height={128}
-                loading="lazy"
-                decoding="async"
-                className="h-16 w-16 shrink-0 rounded-full border border-champagne/50 object-cover object-[45%_12%]"
-              />
+              {/* El original es un plano de tres cuartos: dentro de un
+                  círculo de 64 px la cara medía 20 px y la foto se leía
+                  como una mancha. El recorte se hace con zoom, no con
+                  object-position, porque `cover` puede elegir qué trozo se
+                  ve pero no puede acercarse. El origen del zoom está en la
+                  cara (48 % / 27 % del encuadre), así que crece alrededor
+                  de ella y deja margen por los cuatro lados. */}
+              <span className="relative block h-16 w-16 shrink-0 overflow-hidden rounded-full border border-champagne/50 bg-porcelain">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/founder/eilin-consulta.jpg"
+                  alt="Eilin Guependo, que es quien arma las rutinas de esta página"
+                  width={256}
+                  height={256}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full origin-[48%_27%] scale-[1.8] object-cover object-top"
+                />
+              </span>
               <figcaption>
-                <p className="font-display text-title font-normal italic leading-snug text-ink">
-                  Dime cómo está tu piel y te digo por dónde empezar.
+                <p className="font-display text-title font-normal leading-snug text-ink">
+                  Te respondo yo
                 </p>
-                <p className="mt-2 text-micro uppercase text-stone-dark">
-                  Eilin · Curadora
+                <p className="mt-2 text-note text-stone-dark">
+                  Con piezas del catálogo, el porqué de cada paso y el precio
+                  completo. Sin registros ni correos.
                 </p>
               </figcaption>
             </figure>
@@ -409,7 +427,7 @@ export default function SkinDiagnostic() {
                       className="press group flex flex-1 items-center justify-center gap-2 bg-ink px-8 py-4 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
                     >
                       <Star className="h-4 w-4" strokeWidth={1.6} />
-                      Añadir todo a mi ritual
+                      Añadir todo a mi rutina
                     </button>
                     <button
                       onClick={share}

@@ -133,7 +133,7 @@ html::-webkit-scrollbar {
   );
 }
 
-/* ─── Dropcap editorial para la carta de la curadora ──────────────────
+/* ─── Dropcap editorial para la carta de Eilin ────────────────────────
    Calibrada para Bodoni: la didone tiene ojo alto, así que necesita menos
    línea que una old-style para cuadrar con tres renglones. */
 .dropcap::first-letter {

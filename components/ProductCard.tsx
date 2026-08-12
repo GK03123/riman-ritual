@@ -8,7 +8,7 @@
 // Tres tallas, porque un ranking que se ve todo del mismo tamaño no es
 // un ranking: `featured` para la pieza que abre el capítulo, `duo` para
 // el segundo escalón —dos por fila, con voz de display— y `grid` para la
-// cola de la selección y para el catálogo completo.
+// cola del ranking y para el catálogo completo.
 
 import { useState } from "react";
 import Link from "next/link";
@@ -154,7 +154,7 @@ export default function ProductCard({
         {rank && featured && (
           <p className="mb-3 flex items-center gap-3 text-label uppercase text-champagne-bronze">
             <span className="h-px w-8 bg-champagne-deep" aria-hidden />
-            El más pedido de la casa
+            El que más me piden
           </p>
         )}
         <p className="mb-1.5 text-micro uppercase text-stone-dark">

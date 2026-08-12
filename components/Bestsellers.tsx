@@ -9,7 +9,7 @@ import CatalogLink from "./CatalogLink";
 // puesto 2 y el puesto 7 ocupan la misma caja, el orden hay que leerlo
 // en el numeral, nunca se ve.
 //
-// Aquí la selección baja en tres escalones —la nº 1 a todo lo ancho, la
+// Aquí el ranking baja en tres escalones —la nº 1 a todo lo ancho, la
 // 2 y la 3 a media página, y la cola en fila de cuatro—, así que la
 // jerarquía se percibe antes de leer una sola cifra. De paso, los dos
 // escalones altos son justo los que llevan numeral de oro (solo el podio
@@ -26,7 +26,7 @@ export default function Bestsellers() {
       <SectionHeading
         chapter="02"
         variant="spread"
-        eyebrow="La selección"
+        eyebrow="Lo más pedido"
         title={
           <>
             Lo que más <em className="italic text-champagne-deep">se repite</em>{" "}
@@ -52,7 +52,7 @@ export default function Bestsellers() {
         </div>
       )}
 
-      {/* Tercer escalón: la cola de la selección */}
+      {/* Tercer escalón: la cola del ranking */}
       {rest.length > 0 && (
         <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-6 lg:grid-cols-4">
           {rest.map((p, i) => (

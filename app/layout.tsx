@@ -35,7 +35,7 @@ const sans = Jost({
 });
 
 const DESCRIPTION =
-  "Mi selección de skincare coreano: solo lo que uso y lo que he visto funcionar. Responde tres preguntas y te armo la rutina. Envío desde Estados Unidos.";
+  "Soy Eilin Guependo y te ayudo con el skincare coreano de RIMAN. Dime cómo está tu piel y te digo por dónde empezar. Envío desde Estados Unidos.";
 
 const TITLE = `${SITE.brandName} · Boutique de skincare coreano`;
 

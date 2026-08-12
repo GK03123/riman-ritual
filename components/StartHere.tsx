@@ -13,7 +13,7 @@ const DOORS = [
   {
     n: "A",
     title: "No sé por dónde empezar",
-    sub: "Tres preguntas y te digo qué rutina va con tu piel. Toma menos de un minuto.",
+    sub: "Dime cómo está tu piel y te digo por dónde empezar. Toma menos de un minuto.",
     href: "#concerns",
     cta: "Hacer la consulta",
   },
@@ -26,10 +26,10 @@ const DOORS = [
   },
   {
     n: "C",
-    title: "Dime qué usas tú",
-    sub: "Mi selección corta, con las razones por escrito y en mi voz.",
-    href: "#curador",
-    cta: "Ver mi selección",
+    title: "Dime qué recomiendas tú",
+    sub: "Mis recomendados para empezar, con las razones por escrito y en mi voz.",
+    href: "#eilin",
+    cta: "Ver mis recomendados",
   },
 ];
 

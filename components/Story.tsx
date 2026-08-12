@@ -1,6 +1,11 @@
 "use client";
 
-// ─── Capítulo 05 · La casa ──────────────────────────────────────────
+// ─── Capítulo 05 · Riman ────────────────────────────────────────────
+// Es la bisagra del número: los cuatro capítulos anteriores hablan en
+// primera persona y este presenta la marca que Eilin vende. Por eso el
+// rótulo dice el nombre de la marca y no un apodo: quien llega hasta
+// aquí ya sabe quién es ella y lo que falta por saber es qué compra.
+//
 // La página entera vivía dentro de la misma caja: `max-w-7xl`, el mismo
 // padding lateral, sección tras sección. Ocho capítulos con el mismo
 // ancho de columna se leen como un formulario largo, no como un número
@@ -126,7 +131,7 @@ export default function Story() {
 
   return (
     <section
-      id="la-casa"
+      id="riman"
       className="relative scroll-mt-24 overflow-hidden bg-porcelain-deep py-section grain lg:py-section-lg"
     >
       {/* La cabecera se descuelga a la izquierda y deja la derecha vacía:
@@ -142,17 +147,19 @@ export default function Story() {
               05
             </span>
             <span className="text-label uppercase text-champagne-bronze">
-              La casa
+              Riman
             </span>
           </p>
           <h2 className="text-balance font-display text-display-md font-normal text-ink">
-            Detrás de cada frasco hay{" "}
-            <em className="italic text-champagne-deep">una isla y un laboratorio</em>
+            Vendo RIMAN porque puedo{" "}
+            <em className="italic text-champagne-deep">
+              explicar de dónde sale
+            </em>
           </h2>
           <p className="mt-6 max-w-measure text-body text-pretty text-stone-dark">
-            No trabajo con marcas que no puedo explicar. Esto es lo que hay
-            detrás de las tres líneas que tengo en la boutique: de dónde sale la
-            materia prima y quién la formula.
+            Una isla volcánica al sur de Corea y un laboratorio que formula lo
+            que produce. De ahí salen las tres líneas que tengo: Incellderm,
+            BOTALAB y Lifening.
           </p>
         </Reveal>
       </div>

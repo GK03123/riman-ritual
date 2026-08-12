@@ -188,7 +188,7 @@ export function buildRoutine(a: Answers): RoutinePlan {
     .filter((s) => !s.optional)
     .reduce((sum, s) => sum + (s.product.price ?? 0), 0);
 
-  // Atajo: el kit ritual oficial que más se parece a esta rutina.
+  // Atajo: el kit oficial que más se parece a esta rutina.
   let kit: Product | null;
   if (a.level === "esencial") {
     kit = byId(ID.ritualEssential);

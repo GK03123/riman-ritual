@@ -7,45 +7,51 @@ import Curator from "@/components/Curator";
 import Story from "@/components/Story";
 import Rituals from "@/components/Rituals";
 import JejuFilm from "@/components/JejuFilm";
-import Ingredient from "@/components/Ingredient";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import { SITE, productUrl } from "@/lib/site";
+import { SITE, instagramUrl, productUrl } from "@/lib/site";
 import { BESTSELLERS } from "@/lib/products";
 
 // El sumario del número, en orden:
-// 01 portada · 02 lo más pedido · 03 la consulta · 04 la curadora ·
-// 05 la casa · 06 los rituales · 07 el origen · 08 la ciencia ·
-// 09 lo que me escriben.
+// 01 portada · 02 lo que más me piden · 03 la consulta ·
+// 04 quién está detrás · 05 Riman · 06 las rutinas · 07 el origen ·
+// 08 lo que me escriben.
 //
 // El número tiene dos actos y una bisagra. Los cuatro primeros capítulos
-// son papel claro y voz en primera persona; del 06 al 08 la revista se va
-// a jade y habla la marca; el 09 vuelve a la porcelana para cerrar con
-// quien compró. El 05 es la bisagra: la doble página a sangre que lleva
-// del "yo" al "de dónde sale esto" sin que el salto de tono se note.
+// son papel claro y hablan en primera persona; el 06 y el 07 se van a
+// jade y habla la marca; el 08 vuelve a la porcelana para cerrar con
+// quien compró y con Eilin. El 05 es la bisagra: la doble página a
+// sangre que lleva del "yo" al "de dónde sale esto" sin que el salto de
+// tono se note.
 //
-// FAQ y el cierre (FinalCTA) se retiraron a petición de la clienta; sus
-// componentes siguen en el repositorio por si se vuelven a montar. El
-// único CTA de catálogo permanente es el del header. Por eso el remate
-// de venta vive dentro del capítulo 09 y no en una sección aparte.
+// FAQ, el cierre (FinalCTA) y el capítulo de ciencia (Ingredient) se
+// retiraron a petición de la clienta; sus componentes siguen en el
+// repositorio por si se vuelven a montar. El único CTA de catálogo
+// permanente es el del header, así que el remate de venta vive dentro
+// del capítulo 08 y no en una sección aparte.
 // Datos estructurados de la portada. Describen tres cosas que un
 // buscador (o un asistente que responda "dónde compro skincare coreano
-// en Estados Unidos") no puede deducir del texto: que esto es una
-// boutique, quién la cura, y cuáles son las piezas que más salen.
-// Nada de valoraciones ni de cifras de ventas: no las tenemos.
+// en Estados Unidos") no puede deducir del texto: quién es Eilin y dónde
+// se la encuentra, que aquí se vende, y cuáles son las piezas que más
+// salen. Nada de valoraciones ni de cifras de ventas: no las tenemos, y
+// ningún título profesional: no lo hay.
 function homeJsonLd() {
   const base = SITE.url || undefined;
+  const instagram = instagramUrl() || undefined;
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Person",
-        ...(base && { "@id": `${base}#curadora` }),
+        ...(base && { "@id": `${base}#eilin` }),
         name: SITE.brandName,
-        jobTitle: "Curadora de skincare coreano",
         description:
-          "Curadora de la boutique. Selecciona a mano las líneas de RIMAN que usa y recomienda.",
+          "Recomiendo tres líneas de skincare coreano de RIMAN y ayudo a elegir por dónde empezar. Envío desde Estados Unidos.",
+        // sameAs es lo que le permite a un buscador atar esta página con
+        // la cuenta donde publica: sin él, Eilin y @eilin_guependo son dos
+        // entidades sueltas que nadie relaciona.
+        ...(instagram && { sameAs: [instagram] }),
       },
       {
         "@type": "OnlineStore",
@@ -54,7 +60,7 @@ function homeJsonLd() {
         description: SITE.tagline,
         areaServed: { "@type": "Country", name: "United States" },
         currenciesAccepted: "USD",
-        ...(base && { founder: { "@id": `${base}#curadora` } }),
+        ...(base && { founder: { "@id": `${base}#eilin` } }),
       },
       {
         "@type": "WebSite",
@@ -109,7 +115,6 @@ export default function Home() {
         <Story />
         <Rituals />
         <JejuFilm />
-        <Ingredient />
         <Testimonials />
       </main>
       <Footer />

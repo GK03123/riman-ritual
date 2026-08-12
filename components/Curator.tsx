@@ -3,28 +3,32 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Instagram } from "lucide-react";
 import { PRODUCTS, type Product } from "@/lib/products";
-import { productUrl } from "@/lib/site";
+import { SITE, instagramHandle, productUrl } from "@/lib/site";
 import { useProductDrawer } from "@/lib/product-drawer";
 import { EASE } from "@/lib/motion";
 import { formatPrice } from "@/lib/utils";
+import InstagramLink from "./InstagramLink";
 import Reveal from "./Reveal";
 import SaveButton from "./SaveButton";
 import Signature from "./Signature";
 
-// ─── Mi selección: los tres con los que Eilin arranca a cualquiera ──
-// Ids reales del catálogo. La razón va en su voz, no en jerga de marca.
+// ─── Los tres por los que Eilin haría empezar a cualquiera ──────────
+// Ids reales del catálogo. La razón va en su voz de quien recomienda, no
+// en jerga de marca ni en la ficción de que ella curó el catálogo: la
+// página muestra TODO RIMAN, ella es afiliada (no dueña) y su papel es
+// recomendar y guiar, no haber elegido lo que se ve.
 const PICKS: { id: number; reason: string }[] = [
   {
     id: 52745, // Radiansome Cream, bestseller nº 1
     reason:
-      "Si solo te llevas una cosa de esta página, que sea esta crema. Es la que más repito y la primera que recomiendo.",
+      "Si solo te llevas una cosa de esta página, que sea esta crema. Es la primera que recomiendo, siempre.",
   },
   {
     id: 53140, // Derm First Package (booster + sérum)
     reason:
-      "El dúo con el que empiezan casi todas mis clientas. Se siente en la piel desde la primera semana.",
+      "El dúo por el que recomiendo empezar. Hidratación profunda y elasticidad desde las primeras semanas.",
   },
   {
     id: 53154, // SPF 50+
@@ -109,7 +113,7 @@ function PickRow({
 export default function Curator() {
   return (
     <section
-      id="curador"
+      id="eilin"
       className="relative scroll-mt-24 overflow-hidden border-y border-hairline bg-ivory py-section lg:py-section-xl"
     >
       <div
@@ -139,13 +143,15 @@ export default function Curator() {
               </span>
               <span className="h-px w-12 bg-champagne-deep/45" aria-hidden />
               <span className="text-label uppercase text-champagne-bronze">
-                La curadora
+                Quién está detrás
               </span>
             </p>
+            {/* El nombre ya ocupa la portada entera, así que aquí el titular
+                no lo repite: dice lo único que hace falta después de verlo. */}
             <h2 className="font-display text-display-lg font-normal">
-              Curada por
+              Lo que recomiendo
               <br />
-              <em className="italic text-champagne-deep">Eilin Guependo</em>
+              <em className="italic text-champagne-deep">y por qué</em>
             </h2>
           </Reveal>
 
@@ -163,7 +169,7 @@ export default function Curator() {
           >
             <Image
               src="/founder/eilin-retrato.jpg"
-              alt="Eilin Guependo, curadora de la boutique"
+              alt="Retrato de Eilin Guependo, que recomienda skincare coreano de RIMAN en esta página"
               width={640}
               height={853}
               sizes="(max-width: 640px) 90vw, 384px"
@@ -171,7 +177,7 @@ export default function Curator() {
             />
             <figcaption className="mt-4 flex items-center gap-3 text-micro uppercase text-stone-dark">
               <span className="h-px w-8 bg-champagne-deep/50" aria-hidden />
-              Eilin Guependo · Curadora
+              Eilin Guependo
             </figcaption>
           </motion.figure>
 
@@ -184,41 +190,67 @@ export default function Curator() {
           >
             <Signature width={196} />
           </motion.div>
+
+          {/* La invitación a Instagram cierra el bloque de autoría: retrato,
+              firma y sitio donde seguirla. Puesta aquí es la continuación
+              natural de la carta, no un icono suelto colgado del pie.
+              La tarjeta entera es el objetivo táctil, así que el arroba no
+              necesita ser un enlace aparte. */}
+          <Reveal delay={0.3}>
+            <InstagramLink
+              className="press sheen mt-8 flex max-w-sm items-center gap-4 rounded-vitrine border border-hairline bg-porcelain/70 p-4 shadow-card transition-all duration-500 ease-editorial hover:-translate-y-0.5 hover:border-champagne/50 hover:shadow-cardHover"
+              label={`Ver el Instagram de ${SITE.brandName}, ${instagramHandle}. Se abre en una pestaña nueva`}
+            >
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-champagne/40 bg-champagne-soft/50 text-champagne-deep transition-transform duration-500 ease-editorial group-hover:scale-105">
+                <Instagram aria-hidden className="h-5 w-5" strokeWidth={1.4} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-label uppercase text-champagne-bronze">
+                  Mira mi día a día
+                </span>
+                <span className="mt-1 block truncate font-display text-lg font-medium text-ink">
+                  {instagramHandle}
+                </span>
+              </span>
+              <ArrowUpRight
+                aria-hidden
+                className="h-4 w-4 shrink-0 text-champagne-deep transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </InstagramLink>
+          </Reveal>
         </div>
 
-        {/* Columna de contenido: carta + su selección */}
+        {/* Columna de contenido: carta + sus recomendados */}
         <div>
           <Reveal delay={0.15}>
             <p className="dropcap font-display text-lede font-normal text-ink">
               La rutina coreana llegó a mi vida como llegan las mejores cosas:
-              sin prisa. Al principio fue curiosidad por una crema, luego un
-              ritual entero, y un día me di cuenta de que el orden en que me
+              sin prisa. Al principio fue curiosidad por una crema, luego una
+              rutina entera, y un día me di cuenta de que el orden en que me
               aplicaba las cosas había dejado de parecerme complicado.
             </p>
 
-            {/* Cita destacada: el momento de "segundo vistazo" de la carta */}
+            {/* Cita destacada: el momento de "segundo vistazo" de la carta.
+                La prueba que da no es a quién se lo recomendaría, es dónde
+                está el producto cuando nadie mira. */}
             <blockquote className="my-8 border-l-2 border-champagne-deep/60 py-1 pl-6">
               <p className="pull-quote font-display text-title font-normal italic leading-snug text-ink">
-                Aquí solo hay productos que le recomendaría a mi hermana
+                Está todo RIMAN. Lo mío es decirte por dónde empezar
               </p>
             </blockquote>
 
             <p className="text-body text-stone-dark">
-              Esta boutique es la selección que llevo años armando en cuadernos
-              y notas de voz. Nada entró por catálogo: todo pasó primero por mi
-              cara o por la de alguien a quien le respondo. Trabajo tres líneas:
-              Incellderm para el skincare, BOTALAB para el cuerpo y el cabello,
-              y Lifening para los suplementos que sostienen la piel desde
-              adentro.
+              Trabajo tres líneas: Incellderm para el skincare, BOTALAB para el
+              cuerpo y el cabello, y Lifening para los suplementos.
             </p>
           </Reveal>
 
-          {/* Mi selección: la founder empuja al producto, nunca al revés */}
+          {/* Sus recomendados: la founder empuja al producto, nunca al revés */}
           <div className="mt-10">
             <Reveal>
               <p className="mb-5 flex items-center gap-3 text-label uppercase text-champagne-bronze">
                 <span className="h-px w-10 bg-champagne-deep" aria-hidden />
-                Mi selección para empezar
+                Por dónde empezaría yo
               </p>
             </Reveal>
             <ul className="space-y-3">

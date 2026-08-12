@@ -141,7 +141,7 @@ export default function Spotlight() {
                 className="group flex items-center gap-2 bg-ink px-7 py-4 text-[11px] uppercase tracking-micro text-ivory transition-colors duration-300 hover:bg-champagne-deep"
               >
                 <Star className="h-4 w-4" strokeWidth={1.6} />
-                Guardar en mi ritual
+                Guardar en mi rutina
               </button>
               <div className="flex items-center gap-4">
                 <span className="font-display text-xl text-champagne-deep">

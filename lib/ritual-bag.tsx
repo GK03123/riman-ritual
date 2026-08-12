@@ -1,6 +1,6 @@
 "use client";
 
-// ─── Mi Ritual: la bolsa de la boutique ────────────────────────────
+// ─── Mi rutina: la bolsa de la boutique ────────────────────────────
 // Una sola lista guardada (no wishlist + carrito por separado): en una
 // tienda de afiliada el pago se completa en RIMAN producto a producto,
 // así que dos listas paralelas duplicarían el mismo gesto. Aquí todo
@@ -145,7 +145,7 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
         }
         return [...prev, { id: p.id, qty: 1 }];
       });
-      showToast("Guardado en tu ritual");
+      showToast("Guardado en tu rutina");
     },
     [showToast]
   );
@@ -162,7 +162,7 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
         return next;
       });
       showToast(
-        ps.length === 1 ? "Guardado en tu ritual" : "Rutina guardada en tu ritual"
+        ps.length === 1 ? "Guardado en tu rutina" : "Rutina guardada"
       );
     },
     [showToast]
@@ -189,7 +189,7 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
     (p: Product) => {
       if (stored.some((it) => it.id === p.id)) {
         setStored((prev) => prev.filter((it) => it.id !== p.id));
-        showToast("Quitado de tu ritual");
+        showToast("Quitado de tu rutina");
       } else {
         add(p);
       }

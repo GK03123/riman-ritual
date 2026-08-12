@@ -27,6 +27,13 @@ export const SITE = {
   // Dejar vacío ("") para ocultar el botón flotante.
   whatsapp: "",
 
+  // Instagram de la clienta: el usuario a secas, sin arroba, sin URL y sin
+  // los parámetros de seguimiento que la app añade al compartir. Aquí es
+  // donde vive su día a día, que es la prueba de que detrás de esta página
+  // hay una persona y no un catálogo. Dejar vacío ("") y no se pinta
+  // ningún enlace en ningún sitio, igual que con whatsapp.
+  instagram: "eilin_guependo",
+
   // Promo vigente en la tienda destino. Editar o dejar "" para mostrar
   // los mensajes permanentes de la barra (envío, garantía, devoluciones).
   promo: "",
@@ -35,3 +42,14 @@ export const SITE = {
 export function productUrl(id: number): string {
   return `https://mall.riman.com/${SITE.affiliateSlug}/products/${id}?country=${SITE.country}&lang=${SITE.lang}`;
 }
+
+/** Perfil de Instagram, o cadena vacía si no hay cuenta configurada.
+ *
+ *  Devolver "" en vez de undefined deja el guardado en un solo sitio: quien
+ *  lo consume solo tiene que preguntar si hay cadena. */
+export function instagramUrl(): string {
+  return SITE.instagram ? `https://www.instagram.com/${SITE.instagram}` : "";
+}
+
+/** El arroba tal y como se escribe en pantalla. Vacío si no hay cuenta. */
+export const instagramHandle = SITE.instagram ? `@${SITE.instagram}` : "";

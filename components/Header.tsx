@@ -21,9 +21,9 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { href: "/#concerns", label: "Consulta" },
   { href: "/#bestsellers", label: "Bestsellers" },
-  { href: "/#rituales", label: "Rituales" },
+  { href: "/#rituales", label: "Rutinas" },
   { href: "__catalog__", label: "Catálogo" },
-  { href: "/#curador", label: "Curadora" },
+  { href: "/#eilin", label: "Eilin" },
 ];
 
 export default function Header() {
@@ -97,7 +97,7 @@ export default function Header() {
           </button>
           <button
             onClick={openBag}
-            aria-label={`Abrir mi ritual${count > 0 ? ` (${count} productos)` : ""}`}
+            aria-label={`Abrir mi rutina${count > 0 ? ` (${count} productos)` : ""}`}
             className="press relative flex h-11 w-11 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-champagne-soft/60 hover:text-champagne-deep"
           >
             <Star className="h-[18px] w-[18px]" strokeWidth={1.6} />
