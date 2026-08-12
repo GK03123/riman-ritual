@@ -1,6 +1,6 @@
 "use client";
 
-// ─── Capítulo 08 · Lo que me escriben ───────────────────────────────
+// ─── Capítulo 07 · Lo que me escriben ───────────────────────────────
 // Era el activo más débil de la página: cuatro frases centradas, unas
 // iniciales y ninguna salida. Y sin embargo es el último capítulo antes
 // del pie, o sea el último sitio donde alguien decide comprar.
@@ -119,7 +119,7 @@ export default function Testimonials() {
             aria-hidden
             className="editorial-index gold-text font-display text-display-sm font-medium leading-none"
           >
-            08
+            07
           </span>
           <span className="text-label uppercase text-champagne-bronze">
             Lo que me escriben

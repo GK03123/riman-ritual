@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 import Bestsellers from "@/components/Bestsellers";
 import SkinDiagnostic from "@/components/SkinDiagnostic";
 import Curator from "@/components/Curator";
-import Story from "@/components/Story";
 import Rituals from "@/components/Rituals";
 import JejuFilm from "@/components/JejuFilm";
 import Testimonials from "@/components/Testimonials";
@@ -15,21 +14,20 @@ import { BESTSELLERS } from "@/lib/products";
 
 // El sumario del número, en orden:
 // 01 portada · 02 lo que más me piden · 03 la consulta ·
-// 04 quién está detrás · 05 Riman · 06 las rutinas · 07 el origen ·
-// 08 lo que me escriben.
+// 04 quién está detrás · 05 las rutinas · 06 el origen ·
+// 07 lo que me escriben.
 //
-// El número tiene dos actos y una bisagra. Los cuatro primeros capítulos
-// son papel claro y hablan en primera persona; el 06 y el 07 se van a
-// jade y habla la marca; el 08 vuelve a la porcelana para cerrar con
-// quien compró y con Eilin. El 05 es la bisagra: la doble página a
-// sangre que lleva del "yo" al "de dónde sale esto" sin que el salto de
-// tono se note.
+// El número tiene dos actos. Los cuatro primeros capítulos son papel
+// claro y hablan en primera persona; el 05 y el 06 se van a jade y
+// habla la marca; el 07 vuelve a la porcelana para cerrar con quien
+// compró y con Eilin. Del 04 (marfil) al 05 (jade) el salto es de tono
+// claro a oscuro, así que no hace falta bisagra entre medias.
 //
-// FAQ, el cierre (FinalCTA) y el capítulo de ciencia (Ingredient) se
-// retiraron a petición de la clienta; sus componentes siguen en el
-// repositorio por si se vuelven a montar. El único CTA de catálogo
-// permanente es el del header, así que el remate de venta vive dentro
-// del capítulo 08 y no en una sección aparte.
+// FAQ, el cierre (FinalCTA), el capítulo de ciencia (Ingredient) y el de
+// la marca (Story · "Riman") se retiraron a petición de la clienta; sus
+// componentes siguen en el repositorio por si se vuelven a montar. El
+// único CTA de catálogo permanente es el del header, así que el remate
+// de venta vive dentro del capítulo 07 y no en una sección aparte.
 // Datos estructurados de la portada. Describen tres cosas que un
 // buscador (o un asistente que responda "dónde compro skincare coreano
 // en Estados Unidos") no puede deducir del texto: quién es Eilin y dónde
@@ -112,7 +110,6 @@ export default function Home() {
         <Bestsellers />
         <SkinDiagnostic />
         <Curator />
-        <Story />
         <Rituals />
         <JejuFilm />
         <Testimonials />

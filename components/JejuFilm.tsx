@@ -63,7 +63,7 @@ export default function JejuFilm() {
             aria-hidden
             className="editorial-index gold-text font-display text-title font-medium leading-none"
           >
-            07
+            06
           </span>
           <span className="h-px w-10 bg-champagne/50" aria-hidden />
           <span className="text-label uppercase text-champagne-light">

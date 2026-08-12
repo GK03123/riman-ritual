@@ -126,7 +126,7 @@ export default function Rituals() {
           <SectionHeading
             dark
             align="left"
-            chapter="06"
+            chapter="05"
             eyebrow="Las rutinas"
             title={
               <>
