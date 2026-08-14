@@ -19,14 +19,30 @@ export interface RoutineStep {
   n: string;
   phase: string;
   when: string;
-  optional?: boolean;
+  product: Product;
+  why: string;
+}
+
+/** Refuerzo interno. No es un paso de la rutina y por eso vive fuera de
+ *  `steps`: no lleva numeral ni entra en `total`. */
+export interface RoutineExtra {
+  phase: string;
+  when: string;
   product: Product;
   why: string;
 }
 
 export interface RoutinePlan {
+  /** Los pasos de la rutina, todos obligatorios y todos numerados. */
   steps: RoutineStep[];
+  /** Suma de `steps`, siempre. Es una invariante, no una convención:
+   *  mientras `total` se calcule desde `steps` y no haya nada dentro de
+   *  `steps` que se excluya, el número del titular no puede dejar de
+   *  cuadrar con las filas que se ven debajo. */
   total: number;
+  /** El refuerzo desde dentro, cuando el objetivo lo pide. Se pinta
+   *  aparte, con su propio precio. */
+  extra: RoutineExtra | null;
   kit: Product | null;
   kitNote: string;
 }
@@ -56,13 +72,7 @@ const byId = (id: number): Product | null =>
 export function buildRoutine(a: Answers): RoutinePlan {
   const steps: RoutineStep[] = [];
 
-  const push = (
-    phase: string,
-    when: string,
-    id: number,
-    why: string,
-    optional = false
-  ) => {
+  const push = (phase: string, when: string, id: number, why: string) => {
     const product = byId(id);
     if (product) {
       steps.push({
@@ -71,7 +81,6 @@ export function buildRoutine(a: Answers): RoutinePlan {
         when,
         product,
         why,
-        optional,
       });
     }
   };
@@ -174,19 +183,28 @@ export function buildRoutine(a: Answers): RoutinePlan {
   );
 
   // 6 · Refuerzo interno, solo cuando el objetivo es firmeza.
-  if (a.goal === "firmeza") {
-    push(
-      "Refuerza",
-      "Diario",
-      ID.beautyCollagen,
-      "Colágeno bebible tipo I con biotina y ácido hialurónico. Apoyo desde adentro para la elasticidad.",
-      true
-    );
-  }
+  //
+  // Esto era el paso "06" de la lista, marcado con un `optional: true` que
+  // lo sacaba del total pero no de la pantalla: el titular decía "4 pasos,
+  // $230" con cinco filas de precio debajo que sumaban $329. Quien lee no
+  // ve una bandera en el objeto, ve cinco precios. Y al pulsar "añadir todo
+  // a mi rutina" la bolsa cargaba los cinco y remataba con otro total
+  // distinto.
+  //
+  // Ahora vive fuera de `steps`. No es un paso de la rutina de piel (se
+  // bebe), no lleva numeral y no entra en el total. Se pinta aparte y con
+  // su precio a la vista, así que sumar sigue dando lo que pone arriba.
+  const collagen = a.goal === "firmeza" ? byId(ID.beautyCollagen) : null;
+  const extra: RoutineExtra | null = collagen
+    ? {
+        phase: "Refuerza",
+        when: "Diario",
+        product: collagen,
+        why: "Colágeno bebible tipo I con biotina y ácido hialurónico. Apoyo desde adentro para la elasticidad.",
+      }
+    : null;
 
-  const total = steps
-    .filter((s) => !s.optional)
-    .reduce((sum, s) => sum + (s.product.price ?? 0), 0);
+  const total = steps.reduce((sum, s) => sum + (s.product.price ?? 0), 0);
 
   // Atajo: el kit oficial que más se parece a esta rutina.
   let kit: Product | null;
@@ -202,5 +220,5 @@ export function buildRoutine(a: Answers): RoutinePlan {
     ? "Si prefieres empezar con una sola compra, este kit oficial agrupa una rutina muy parecida."
     : "";
 
-  return { steps, total, kit, kitNote };
+  return { steps, total, extra, kit, kitNote };
 }

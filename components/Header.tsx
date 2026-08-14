@@ -18,11 +18,13 @@ import { cn } from "@/lib/utils";
 
 // Rutas absolutas para que la navegación funcione también desde las
 // páginas de producto, no solo desde la portada.
+// "Catálogo" no está en la lista a propósito: el botón de la derecha y la
+// lupa ya abren el mismo panel, y tres controles para un solo destino es
+// justo el ruido que esta pasada viene a quitar.
 const LINKS = [
   { href: "/#concerns", label: "Consulta" },
   { href: "/#bestsellers", label: "Bestsellers" },
   { href: "/#rituales", label: "Rutinas" },
-  { href: "__catalog__", label: "Catálogo" },
   { href: "/#eilin", label: "Eilin" },
 ];
 
@@ -55,12 +57,13 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-[72px] sm:px-6">
         {/* Wordmark. Con Link, volver a la portada desde una ficha de
             producto es navegación de cliente y no una recarga completa. */}
-        <Link href="/" className="group flex flex-col leading-none">
-          <span className="font-display text-[22px] font-medium tracking-[0.08em] transition-colors duration-300 group-hover:text-champagne-deep sm:text-2xl">
+        {/* El descriptor de debajo del nombre se retiró: la barra de avisos
+            y la primera línea de la portada ya dicen qué se vende aquí, y
+            en 375 px el nombre partía en dos renglones para dejar sitio a
+            una línea que nadie lee. */}
+        <Link href="/" className="group flex items-center leading-none">
+          <span className="whitespace-nowrap font-display text-[19px] font-medium tracking-[0.1em] transition-colors duration-300 group-hover:text-champagne-deep sm:text-2xl">
             {SITE.brandName.toUpperCase()}
-          </span>
-          <span className="mt-0.5 text-micro uppercase text-stone-dark">
-            K-Beauty y cuidado personal
           </span>
         </Link>
 

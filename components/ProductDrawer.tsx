@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ArrowUpRight, Truck, ShieldCheck, PackageOpen } from "lucide-react";
 import { useProductDrawer } from "@/lib/product-drawer";
@@ -103,13 +104,14 @@ export default function ProductDrawer() {
                 <motion.div {...rise(0.1)} className="relative bg-vitrine-radial">
                   <div className="relative aspect-square">
                     {gallery.map((src, i) => (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img
+                      <Image
                         key={src}
                         src={src}
                         alt={product.name}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 360px"
                         className={cn(
-                          "absolute inset-0 h-full w-full object-contain p-10 transition-opacity duration-500",
+                          "object-contain p-10 transition-opacity duration-500",
                           i === activeImg ? "opacity-100" : "opacity-0"
                         )}
                       />
@@ -127,14 +129,13 @@ export default function ProductDrawer() {
                           key={src}
                           onClick={() => setActiveImg(i)}
                           className={cn(
-                            "press h-14 w-14 rounded-seal border transition-all",
+                            "press relative h-14 w-14 rounded-seal border transition-all",
                             i === activeImg ? "border-ink" : "border-hairline opacity-60 hover:opacity-100"
                           )}
                           aria-label={`Ver imagen ${i + 1}`}
                           aria-current={i === activeImg}
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={src} alt="" className="h-full w-full object-contain p-1" loading="lazy" />
+                          <Image src={src} alt="" fill sizes="56px" className="object-contain p-1" loading="lazy" />
                         </button>
                       ))}
                     </div>
@@ -238,11 +239,13 @@ export default function ProductDrawer() {
                         onClick={() => open(c)}
                         className="press group flex flex-col rounded-vitrine border border-hairline bg-ivory p-3 text-left transition-all duration-300 ease-editorial hover:-translate-y-0.5 hover:border-champagne/40 hover:shadow-card"
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={c.image}
                           alt={c.name}
+                          width={240}
+                          height={240}
                           loading="lazy"
+                          sizes="160px"
                           className="mb-3 aspect-square w-full object-contain transition-transform duration-500 group-hover:scale-105"
                         />
                         <p className="line-clamp-2 text-[11px] leading-tight text-ink">{c.name}</p>

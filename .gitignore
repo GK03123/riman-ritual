@@ -30,3 +30,6 @@ yarn-error.log*
 .DS_Store
 *.pem
 Thumbs.db
+
+# Originales de fotografía sin usar (fuera del deploy)
+/originales

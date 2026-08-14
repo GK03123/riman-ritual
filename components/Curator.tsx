@@ -22,18 +22,15 @@ import Signature from "./Signature";
 const PICKS: { id: number; reason: string }[] = [
   {
     id: 52745, // Radiansome Cream, bestseller nº 1
-    reason:
-      "Si solo te llevas una cosa de esta página, que sea esta crema. Es la primera que recomiendo, siempre.",
+    reason: "Si solo te llevas una cosa de aquí, que sea esta crema.",
   },
   {
     id: 53140, // Derm First Package (booster + sérum)
-    reason:
-      "El dúo por el que recomiendo empezar. Hidratación profunda y elasticidad desde las primeras semanas.",
+    reason: "El dúo por el que recomiendo empezar. Se nota en las primeras semanas.",
   },
   {
     id: 53154, // SPF 50+
-    reason:
-      "Innegociable. Todo lo que tu rutina construye de noche, el sol lo borra de día si no la proteges.",
+    reason: "Innegociable. Lo que la rutina hace de noche, el sol lo deshace de día.",
   },
 ];
 
@@ -65,14 +62,13 @@ function PickRow({
         aria-label={`Ver ficha de ${product.name}`}
         className="press h-20 w-20 shrink-0 overflow-hidden rounded-seal bg-vitrine-radial sm:h-24 sm:w-24"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={product.image}
           alt={product.name}
           width={192}
           height={192}
           loading="lazy"
-          decoding="async"
+          sizes="96px"
           className="h-full w-full object-contain p-1.5 transition-transform duration-500 ease-editorial group-hover:scale-105"
         />
       </button>
@@ -120,15 +116,11 @@ export default function Curator() {
         aria-hidden
         className="pointer-events-none absolute -right-40 -top-32 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,#EFE6D3_0%,transparent_70%)]"
       />
-      {/* Inicial gigante de fondo. Antes se salía por el borde izquierdo y
-          chocaba con el titular: ahora vive en la banda derecha, recortada
-          por el overflow de la sección, donde no compite con nada. */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -right-16 top-24 select-none font-display text-[20rem] font-normal italic leading-none text-champagne/[0.07] lg:-right-24 lg:text-[34rem]"
-      >
-        E
-      </span>
+      {/* Aquí vivía una "E" de treinta y cuatro rem al 7 % de opacidad. Se
+          fue: a cuarenta píxeles de distancia, la carta de Eilin ya abre
+          con una capitular en la misma itálica y del mismo color, así que
+          el capítulo tenía dos letras gigantes compitiendo por el mismo
+          gesto. La que significa algo es la que empieza la carta. */}
 
       <div className="relative mx-auto grid max-w-6xl items-start gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         {/* Columna editorial: titular + retrato + firma */}
@@ -148,8 +140,11 @@ export default function Curator() {
             </p>
             {/* El nombre ya ocupa la portada entera, así que aquí el titular
                 no lo repite: dice lo único que hace falta después de verlo. */}
+            {/* El salto de línea va con un espacio delante: sin él, el
+                nombre accesible del encabezado se leía de corrido
+                ("Lo que recomiendoy por qué"). */}
             <h2 className="font-display text-display-lg font-normal">
-              Lo que recomiendo
+              Lo que recomiendo{" "}
               <br />
               <em className="italic text-champagne-deep">y por qué</em>
             </h2>
@@ -169,33 +164,28 @@ export default function Curator() {
           >
             <Image
               src="/founder/eilin-retrato.jpg"
-              alt="Retrato de Eilin Guependo, que recomienda skincare coreano de RIMAN en esta página"
+              alt="Eilin Guependo sentada en el suelo de un estudio, con camiseta blanca y vaqueros grises, mirando a cámara"
               width={640}
               height={853}
               sizes="(max-width: 640px) 90vw, 384px"
-              className="aspect-[3/4] w-full object-cover object-[50%_18%] shadow-vitrine"
+              className="aspect-[3/4] w-full object-cover shadow-vitrine"
             />
-            <figcaption className="mt-4 flex items-center gap-3 text-micro uppercase text-stone-dark">
-              <span className="h-px w-8 bg-champagne-deep/50" aria-hidden />
-              Eilin Guependo
-            </figcaption>
+            {/* Sin pie: el capítulo se titula "quién está detrás" y el
+                nombre está en la cabecera, en el masthead de la portada y
+                en el pie. Un pie de foto que repite el nombre no informa
+                de nada, solo ocupa. */}
           </motion.figure>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8"
-          >
-            <Signature width={196} />
-          </motion.div>
+          {/* La firma se fue al pie de la carta, en la columna de la
+              derecha: firmaba desde la columna de al lado un texto que
+              estaba a quinientos píxeles. Y de paso las dos columnas
+              terminan a la misma altura. */}
 
-          {/* La invitación a Instagram cierra el bloque de autoría: retrato,
-              firma y sitio donde seguirla. Puesta aquí es la continuación
-              natural de la carta, no un icono suelto colgado del pie.
-              La tarjeta entera es el objetivo táctil, así que el arroba no
-              necesita ser un enlace aparte. */}
+          {/* La invitación a Instagram cierra el bloque de autoría: retrato
+              y sitio donde seguirla. Puesta aquí es la continuación natural
+              del retrato, no un icono suelto colgado del pie. La tarjeta
+              entera es el objetivo táctil, así que el arroba no necesita
+              ser un enlace aparte. */}
           <Reveal delay={0.3}>
             <InstagramLink
               className="press sheen mt-8 flex max-w-sm items-center gap-4 rounded-vitrine border border-hairline bg-porcelain/70 p-4 shadow-card transition-all duration-500 ease-editorial hover:-translate-y-0.5 hover:border-champagne/50 hover:shadow-cardHover"
@@ -224,10 +214,8 @@ export default function Curator() {
         <div>
           <Reveal delay={0.15}>
             <p className="dropcap font-display text-lede font-normal text-ink">
-              La rutina coreana llegó a mi vida como llegan las mejores cosas:
-              sin prisa. Al principio fue curiosidad por una crema, luego una
-              rutina entera, y un día me di cuenta de que el orden en que me
-              aplicaba las cosas había dejado de parecerme complicado.
+              Empecé por curiosidad, con una crema. Un año después tenía la
+              rutina entera y el orden ya no me parecía complicado.
             </p>
 
             {/* Cita destacada: el momento de "segundo vistazo" de la carta.
@@ -243,6 +231,16 @@ export default function Curator() {
               Trabajo tres líneas: Incellderm para el skincare, BOTALAB para el
               cuerpo y el cabello, y Lifening para los suplementos.
             </p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-8"
+            >
+              <Signature width={188} />
+            </motion.div>
           </Reveal>
 
           {/* Sus recomendados: la founder empuja al producto, nunca al revés */}

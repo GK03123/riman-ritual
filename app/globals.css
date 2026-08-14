@@ -229,6 +229,59 @@ body.bag-open {
   }
 }
 
+/* ─── Entrada de la portada, en CSS y no en JavaScript ──────────────
+   La portada entera arrancaba en opacity:0 y la revelaba framer al
+   montar. Eso ata la primera pantalla a la hidratación del bundle: con
+   la CPU frenada cuatro veces (un móvil de gama media real), el LCP se
+   medía en 5,4 s porque la fotografía, ya descargada y decodificada,
+   seguía invisible esperando a que React terminara.
+   En CSS la misma coreografía empieza en la primera pintada, sin
+   depender de JavaScript, y el LCP vuelve a ser lo que tarda la imagen.
+   La figura protagonista además no anima opacidad, solo desplazamiento:
+   un elemento a opacity 0 no cuenta como candidato a LCP. */
+@keyframes coverIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes coverFigureIn {
+  from {
+    transform: translateY(22px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes coverRise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: none;
+  }
+}
+.cover-in {
+  animation: coverIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+}
+.cover-figure {
+  animation: coverFigureIn 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+.cover-rise {
+  animation: coverRise 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-in,
+  .cover-figure,
+  .cover-rise {
+    animation: none;
+  }
+}
+
 /* Entrada escalonada de opciones del diagnóstico (CSS puro, para no
    anidar animaciones de framer dentro de un AnimatePresence mode=wait). */
 @keyframes optionIn {

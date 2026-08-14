@@ -46,6 +46,9 @@ function homeJsonLd() {
         name: SITE.brandName,
         description:
           "Recomiendo tres líneas de skincare coreano de RIMAN y ayudo a elegir por dónde empezar. Envío desde Estados Unidos.",
+        // Una entidad Person sin imagen es una ficha sin cara. La misma
+        // portada que se comparte por Instagram y WhatsApp.
+        ...(base && { image: `${base}/og.jpg` }),
         // sameAs es lo que le permite a un buscador atar esta página con
         // la cuenta donde publica: sin él, Eilin y @eilin_guependo son dos
         // entidades sueltas que nadie relaciona.

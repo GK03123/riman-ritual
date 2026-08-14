@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
@@ -40,10 +41,10 @@ const SKIN: Option<SkinType>[] = [
 ];
 
 const GOALS: Option<Goal>[] = [
-  { value: "hidratacion", label: "Hidratación profunda", note: "Piel jugosa, cómoda, bien reservada.", Icon: Droplets },
-  { value: "luminosidad", label: "Luminosidad", note: "Despertar el tono, textura con luz.", Icon: Sparkles },
-  { value: "firmeza", label: "Firmeza", note: "Elasticidad y rebote, por fuera y por dentro.", Icon: Feather },
-  { value: "calma", label: "Calmar la piel", note: "Menos rojez, más confort.", Icon: Flower2 },
+  { value: "hidratacion", label: "Hidratación profunda", note: "Piel jugosa y cómoda todo el día.", Icon: Droplets },
+  { value: "luminosidad", label: "Luminosidad", note: "Que el tono se vea despierto.", Icon: Sparkles },
+  { value: "firmeza", label: "Firmeza", note: "Elasticidad y rebote.", Icon: Feather },
+  { value: "calma", label: "Calmar la piel", note: "Menos rojeces y más confort.", Icon: Flower2 },
 ];
 
 const LEVELS: Option<Level>[] = [
@@ -212,24 +213,23 @@ export default function SkinDiagnostic() {
           />
 
           <Reveal delay={0.12}>
-            <figure className="flex items-start gap-4 border-l border-champagne/40 pl-5">
-              {/* El original es un plano de tres cuartos: dentro de un
-                  círculo de 64 px la cara medía 20 px y la foto se leía
-                  como una mancha. El recorte se hace con zoom, no con
-                  object-position, porque `cover` puede elegir qué trozo se
-                  ve pero no puede acercarse. El origen del zoom está en la
-                  cara (48 % / 27 % del encuadre), así que crece alrededor
-                  de ella y deja margen por los cuatro lados. */}
-              <span className="relative block h-16 w-16 shrink-0 overflow-hidden rounded-full border border-champagne/50 bg-porcelain">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/founder/eilin-consulta.jpg"
-                  alt="Eilin Guependo, que es quien arma las rutinas de esta página"
-                  width={256}
-                  height={256}
+            {/* La foto original era un plano de tres cuartos metido en un
+                círculo de 64 px: la cara medía veinte píxeles y había que
+                acercarla con un scale(1.8) para que se reconociera. Ahora
+                el recorte va hecho en el archivo (eilin-mirada.jpg, primer
+                plano de verdad) y el marco es un rectángulo con filete,
+                que es la forma que usa el resto de la casa. El círculo era
+                la única pieza redonda de la página. */}
+            <figure className="flex items-start gap-5">
+              <span className="photo-warm relative block w-[88px] shrink-0 overflow-hidden border border-hairline sm:w-[108px]">
+                <Image
+                  src="/founder/eilin-mirada.jpg"
+                  alt="Primer plano de Eilin Guependo, que es quien responde la consulta"
+                  width={560}
+                  height={700}
                   loading="lazy"
-                  decoding="async"
-                  className="h-full w-full origin-[48%_27%] scale-[1.8] object-cover object-top"
+                  sizes="108px"
+                  className="aspect-[4/5] w-full object-cover"
                 />
               </span>
               <figcaption>
@@ -237,8 +237,8 @@ export default function SkinDiagnostic() {
                   Te respondo yo
                 </p>
                 <p className="mt-2 text-note text-stone-dark">
-                  Con piezas del catálogo, el porqué de cada paso y el precio
-                  completo. Sin registros ni correos.
+                  Tres preguntas y te digo qué usar y en qué orden. Sin
+                  registros ni correos.
                 </p>
               </figcaption>
             </figure>
@@ -247,19 +247,26 @@ export default function SkinDiagnostic() {
 
         {/* La hoja de consulta: un panel que enmarca todo el diagnóstico */}
         <div className="mx-auto mt-12 max-w-4xl rounded-vitrine border border-hairline bg-ivory p-5 shadow-paper sm:mt-16 sm:p-8 lg:p-12">
-          {/* Progreso */}
-          <div className="mb-10 flex items-center gap-4" aria-hidden>
+          {/* Progreso. Los tres filetes son decorativos, pero el contador
+              no: era lo único que decía cuánto queda y estaba dentro de un
+              aria-hidden, así que con lector de pantalla la consulta no
+              tenía principio ni final. */}
+          <div className="mb-10 flex items-center gap-4">
             {[0, 1, 2].map((s) => (
               <span
                 key={s}
+                aria-hidden
                 className={cn(
                   "h-px flex-1 transition-all duration-500",
                   stage > s ? "bg-champagne-deep" : stage === s ? "bg-ink" : "bg-hairline"
                 )}
               />
             ))}
-            <span className="editorial-index text-micro uppercase tracking-wide2 text-stone-dark">
-              {stage < 3 ? `${stage + 1} de 3` : "Tu rutina"}
+            <span
+              role="status"
+              className="editorial-index text-micro uppercase tracking-wide2 text-stone-dark"
+            >
+              {stage < 3 ? `Pregunta ${stage + 1} de 3` : "Tu rutina"}
             </span>
           </div>
 
@@ -318,10 +325,13 @@ export default function SkinDiagnostic() {
                   <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-hairline pb-6">
                     <div>
                       <p className="mb-2 text-label uppercase text-champagne-bronze">
-                        Tu rutina personal
+                        Lo que yo usaría
                       </p>
+                      {/* `plan.total` es, por construcción, la suma de
+                          `plan.steps`: lo que dice este titular es siempre
+                          lo que suman las filas de abajo. */}
                       <h3 className="font-display text-display-sm font-normal">
-                        {plan.steps.filter((s) => !s.optional).length} pasos,{" "}
+                        {plan.steps.length} pasos,{" "}
                         <em className="italic text-champagne-deep">
                           {formatPrice(plan.total)}
                         </em>
@@ -357,14 +367,13 @@ export default function SkinDiagnostic() {
                           aria-label={`Ver ficha de ${s.product.name}`}
                           className="press h-[72px] w-[72px] shrink-0 rounded-seal bg-vitrine-radial sm:h-24 sm:w-24"
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
+                          <Image
                             src={s.product.image}
                             alt={s.product.name}
                             width={192}
                             height={192}
                             loading="lazy"
-                            decoding="async"
+                            sizes="96px"
                             className="h-full w-full object-contain p-1.5"
                           />
                         </button>
@@ -378,7 +387,6 @@ export default function SkinDiagnostic() {
                             </button>
                             <span className="text-micro uppercase tracking-wide2 text-stone-dark">
                               {s.when}
-                              {s.optional ? " · Opcional" : ""}
                             </span>
                           </div>
                           <p className="mt-1.5 text-note text-stone-dark">
@@ -427,7 +435,11 @@ export default function SkinDiagnostic() {
                       className="press group flex flex-1 items-center justify-center gap-2 bg-ink px-8 py-4 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
                     >
                       <Star className="h-4 w-4" strokeWidth={1.6} />
-                      Añadir todo a mi rutina
+                      {/* "Añadir todo" dejaba en el aire qué es todo cuando
+                          debajo hay un refuerzo opcional con su precio.
+                          Diciendo cuántos pasos añade, el botón y el titular
+                          hablan del mismo número. */}
+                      Añadir los {plan.steps.length} pasos a mi rutina
                     </button>
                     <button
                       onClick={share}
@@ -438,25 +450,77 @@ export default function SkinDiagnostic() {
                     </button>
                   </motion.div>
 
+                  {/* El refuerzo desde dentro. Va aquí abajo, fuera de la
+                      lista numerada y fuera del total, porque no es un paso
+                      de la rutina de piel: se bebe. Lleva su propio precio a
+                      la vista y su propio botón, así que quien lo quiera lo
+                      suma a conciencia. */}
+                  {plan.extra && (
+                    <motion.aside
+                      initial={{ opacity: 0, y: 18 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.55, delay: 0.26 + plan.steps.length * 0.08, ease: EASE }}
+                      className="mt-6 flex flex-col gap-5 rounded-vitrine border border-hairline bg-porcelain/60 p-5 sm:flex-row sm:items-center sm:p-6"
+                    >
+                      <button
+                        onClick={() => open(plan.extra!.product)}
+                        aria-label={`Ver ficha de ${plan.extra.product.name}`}
+                        className="press relative h-24 w-24 shrink-0 overflow-hidden rounded-seal border border-hairline bg-ivory"
+                      >
+                        <Image
+                          src={plan.extra.product.image}
+                          alt={plan.extra.product.name}
+                          fill
+                          loading="lazy"
+                          sizes="96px"
+                          className="object-contain p-2"
+                        />
+                      </button>
+                      <div className="flex-1">
+                        <p className="mb-1 flex items-center gap-2 text-label uppercase text-champagne-bronze">
+                          <Sparkles className="h-3.5 w-3.5" /> Opcional, desde
+                          dentro
+                        </p>
+                        <p className="font-display text-xl font-medium leading-snug">
+                          {plan.extra.product.name} ·{" "}
+                          {formatPrice(plan.extra.product.price)}
+                        </p>
+                        <p className="mt-1.5 max-w-lg text-note text-stone-dark">
+                          {plan.extra.why}
+                        </p>
+                      </div>
+                      <a
+                        href={productUrl(plan.extra.product.id)}
+                        target="_blank"
+                        rel="noopener sponsored"
+                        aria-label={`Comprar ${plan.extra.product.name}`}
+                        className="press group flex shrink-0 items-center justify-center gap-2 border border-ink px-6 py-3.5 text-label uppercase text-ink transition-colors duration-300 hover:border-champagne-deep hover:bg-champagne-deep hover:text-ivory"
+                      >
+                        Comprar
+                        <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </a>
+                    </motion.aside>
+                  )}
+
                   {plan.kit && (
                     <motion.aside
                       initial={{ opacity: 0, y: 18 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.55, delay: 0.3 + plan.steps.length * 0.08, ease: EASE }}
+                      transition={{ duration: 0.55, delay: 0.34 + plan.steps.length * 0.08, ease: EASE }}
                       className="mt-6 flex flex-col gap-5 rounded-vitrine border border-champagne/50 bg-champagne-soft/40 p-5 sm:flex-row sm:items-center sm:p-6"
                     >
                       <button
                         onClick={() => open(plan.kit!)}
                         aria-label={`Ver ficha de ${plan.kit.name}`}
-                        className="press h-28 w-28 shrink-0 overflow-hidden rounded-seal border border-hairline bg-ivory"
+                        className="press relative h-28 w-28 shrink-0 overflow-hidden rounded-seal border border-hairline bg-ivory"
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={plan.kit.image}
                           alt={plan.kit.name}
+                          fill
                           loading="lazy"
-                          decoding="async"
-                          className="h-full w-full object-cover"
+                          sizes="112px"
+                          className="object-cover"
                         />
                       </button>
                       <div className="flex-1">

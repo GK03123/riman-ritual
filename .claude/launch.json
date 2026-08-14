@@ -10,8 +10,8 @@
     },
     {
       "name": "riman-ritual-prod",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "start", "-p", "3100"],
       "cwd": "C:\\Users\\brega\\riman-ritual",
       "port": 3100
     }

@@ -3,9 +3,14 @@
 // se indica. Se usan como material editorial en la boutique.
 
 export const MEDIA = {
-  // GIF animado — el activo de movimiento de la marca (1080×1080, loop).
-  jejuFilm:
-    "https://cdn.rimanbuild.com/Assets/Homepage/NAM/bannerBornFromImagebannerBornFromImage.gif",
+  // El metraje "Born from Jeju" de la marca. El original del CDN es un GIF
+  // de 1080×1080 y 34,8 MB: aquí se sirve reencodeado a 960 px y 25 fps
+  // (656 KB en MP4, 440 KB en WebM) con un fotograma de póster de 68 KB.
+  // Los tres archivos viven en /public/media y se generaron con ffmpeg a
+  // partir de ese mismo original.
+  jejuMp4: "/media/jeju.mp4",
+  jejuWebm: "/media/jeju.webm",
+  jejuPoster: "/media/jeju-poster.jpg",
 
   // Banners lifestyle (800×800).
   tradition:

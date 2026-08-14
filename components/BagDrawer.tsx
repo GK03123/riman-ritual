@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -115,8 +116,8 @@ export default function BagDrawer() {
                     Tu rutina está vacía
                   </p>
                   <p className="mx-auto mt-2 max-w-[260px] text-note text-stone-dark">
-                    Guarda productos con el corazón, o responde la consulta y
-                    arma tu rutina en un minuto.
+                    Guarda lo que te guste con el corazón, o respóndeme tres
+                    preguntas y te la armo yo.
                   </p>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -125,7 +126,7 @@ export default function BagDrawer() {
                     onClick={closeBag}
                     className="press group flex items-center justify-center gap-2 bg-ink px-8 py-3.5 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
                   >
-                    Hacer mi consulta
+                    Armar mi rutina
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                   <Link
@@ -155,15 +156,16 @@ export default function BagDrawer() {
                         <Link
                           href={`/producto/${it.product.id}`}
                           onClick={closeBag}
-                          className="h-20 w-20 shrink-0 rounded-seal border border-hairline bg-vitrine-radial"
+                          className="relative h-20 w-20 shrink-0 rounded-seal border border-hairline bg-vitrine-radial"
                           aria-label={`Ver ${it.product.name}`}
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
+                          <Image
                             src={it.product.image}
                             alt={it.product.name}
+                            fill
                             loading="lazy"
-                            className="h-full w-full object-contain p-1.5"
+                            sizes="80px"
+                            className="object-contain p-1.5"
                           />
                         </Link>
                         <div className="min-w-0 flex-1">
@@ -233,11 +235,13 @@ export default function BagDrawer() {
                       Completa tu rutina
                     </p>
                     <div className="flex items-center gap-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={suggestion.image}
                         alt={suggestion.name}
+                        width={96}
+                        height={96}
                         loading="lazy"
+                        sizes="48px"
                         className="h-12 w-12 shrink-0 rounded-seal border border-hairline bg-ivory object-contain p-1"
                       />
                       <div className="min-w-0 flex-1">

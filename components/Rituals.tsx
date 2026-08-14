@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { RITUALS } from "@/lib/products";
 import { productUrl } from "@/lib/site";
@@ -135,7 +136,7 @@ export default function Rituals() {
                 <em className="italic text-champagne-light">en una caja</em>
               </>
             }
-            subtitle="Limpieza, esencia, tratamiento y sellado, en el orden correcto y sin que tengas que decidir nada."
+            subtitle="Los pasos vienen en orden. Tú no tienes que decidir nada."
           />
 
           {/* Flechas de navegación — desktop */}
@@ -190,16 +191,14 @@ export default function Rituals() {
                   className="absolute inset-x-0 top-0 z-10 h-0.5 origin-left scale-x-0 bg-champagne transition-transform duration-500 ease-editorial group-hover:scale-x-100"
                 />
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={r.image}
                     alt={r.name}
-                    width={720}
-                    height={540}
+                    fill
                     loading="lazy"
-                    decoding="async"
+                    sizes="(max-width: 640px) 300px, 360px"
                     draggable={false}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
                   />
                   <div
                     aria-hidden

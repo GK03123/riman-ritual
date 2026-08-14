@@ -1,7 +1,6 @@
 import { ArrowUpRight, Instagram } from "lucide-react";
 import { SITE, instagramHandle } from "@/lib/site";
 import InstagramLink from "./InstagramLink";
-import Signature from "./Signature";
 
 const EXPLORE = [
   { label: "Consulta de piel", href: "/#concerns" },
@@ -47,8 +46,10 @@ export default function Footer() {
             <p className="mt-6 max-w-xs text-note leading-relaxed text-ivory/60">
               {SITE.tagline}.
             </p>
-            {/* Firma de Eilin: el gesto de autoría que cierra la página */}
-            <Signature className="mt-8 opacity-80" tone="champagne" animate={false} width={168} />
+            {/* Aquí había una tercera firma de Eilin. El capítulo 07 cierra
+                el número firmando justo encima, a doscientos píxeles: dos
+                rúbricas seguidas dejan de ser un gesto de autoría y pasan a
+                ser un adorno repetido. */}
 
             {/* Bloque de redes. El pie de una marca personal termina en el
                 sitio donde esa persona sigue publicando, no en un icono

@@ -11,6 +11,7 @@
 // cola del ranking y para el catálogo completo.
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { type Product } from "@/lib/products";
@@ -43,6 +44,15 @@ export default function ProductCard({
     showRank && product.bestsellerRank !== null && product.bestsellerRank <= 3
       ? String(product.bestsellerRank).padStart(2, "0")
       : null;
+
+  /* Cada talla ocupa una fracción distinta de la pantalla, así que cada
+     una pide su propio `sizes`. Sin esto el navegador asume 100vw y se
+     baja la imagen más grande del srcset para una tarjeta de 280 px. */
+  const sizes = featured
+    ? "(max-width: 1024px) 100vw, 640px"
+    : duo
+      ? "(max-width: 640px) 100vw, 50vw"
+      : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw";
 
   return (
     <article
@@ -83,12 +93,16 @@ export default function ProductCard({
       {/* Imagen (toda el área abre la ficha) */}
       <button
         onClick={() => open(product)}
+        /* Las fotos del API ya vienen con mucho aire alrededor del envase,
+           así que la caja no necesita añadir más: menos relleno y encuadres
+           más apaisados hacen el producto más grande y el capítulo más
+           corto, que era el bloque más largo de la página. */
         className={cn(
-          "relative overflow-hidden bg-vitrine-radial p-6 text-left",
+          "relative overflow-hidden bg-vitrine-radial p-4 text-left sm:p-6",
           featured
-            ? "aspect-square lg:aspect-[5/4] lg:w-[52%] lg:shrink-0 lg:p-10"
+            ? "aspect-square lg:aspect-[3/2] lg:w-[52%] lg:shrink-0 lg:p-8"
             : duo
-              ? "aspect-square sm:aspect-[4/3] sm:p-8"
+              ? "aspect-[4/3] sm:aspect-[16/11] sm:p-6"
               : "aspect-square"
         )}
         aria-label={`Ver ficha de ${product.name}`}
@@ -109,14 +123,18 @@ export default function ProductCard({
             {rank}
           </span>
         )}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* Las fotos del catálogo son PNG del CDN oficial, de entre 150 KB
+            y 800 KB cada una, y una portada larga pinta más de sesenta.
+            Pasarlas por el optimizador de Next las sirve en AVIF y en la
+            medida que pide cada `sizes`, que es de donde sale casi toda la
+            bajada de peso de la página. */}
+        <Image
           src={product.image}
           alt={product.name}
           width={600}
           height={600}
           loading={featured ? "eager" : "lazy"}
-          decoding="async"
+          sizes={sizes}
           className={cn(
             "relative z-10 h-full w-full object-contain transition-all duration-700 ease-editorial",
             hasAlt && hovered ? "scale-95 opacity-0" : "scale-100 opacity-100",
@@ -124,19 +142,17 @@ export default function ProductCard({
           )}
         />
         {hasAlt && (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
+          <Image
             src={product.imageAlt!}
             alt=""
             aria-hidden
             width={600}
             height={600}
             loading="lazy"
-            decoding="async"
+            sizes={sizes}
             className={cn(
-              "absolute inset-0 z-10 h-full w-full object-contain p-6 transition-all duration-700 ease-editorial",
-              featured && "lg:p-10",
-              duo && "sm:p-8",
+              "absolute inset-0 z-10 h-full w-full object-contain p-4 transition-all duration-700 ease-editorial sm:p-6",
+              featured && "lg:p-8",
               hovered ? "scale-105 opacity-100" : "scale-100 opacity-0"
             )}
           />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, PackageOpen, ShieldCheck, Truck, Undo2 } from "lucide-react";
@@ -271,12 +272,13 @@ export default function ProductPage({ params }: Props) {
                   href={`/producto/${c.id}`}
                   className="group flex flex-col rounded-vitrine border border-hairline bg-ivory p-4 transition-all duration-500 ease-editorial hover:-translate-y-1 hover:border-champagne/40 hover:shadow-cardHover"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={c.image}
                     alt={c.name}
+                    width={400}
+                    height={400}
                     loading="lazy"
-                    decoding="async"
+                    sizes="(max-width: 640px) 50vw, 300px"
                     className="mb-4 aspect-square w-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                   <p className="text-micro uppercase text-stone-dark">

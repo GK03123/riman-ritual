@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface GalleryProps {
@@ -17,15 +18,16 @@ export default function Gallery({ images, alt, badge }: GalleryProps) {
     <div className="lg:sticky lg:top-24">
       <div className="group relative aspect-square overflow-hidden rounded-vitrine border border-hairline bg-vitrine-radial shadow-card">
         {images.map((src, i) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
+          <Image
             key={src}
             src={src}
             alt={alt}
+            fill
+            priority={i === 0}
             loading={i === 0 ? "eager" : "lazy"}
-            decoding="async"
+            sizes="(max-width: 1024px) 100vw, 620px"
             className={cn(
-              "absolute inset-0 h-full w-full object-contain p-10 transition-all duration-500 ease-editorial",
+              "object-contain p-10 transition-all duration-500 ease-editorial",
               i === active ? "scale-100 opacity-100" : "scale-[0.98] opacity-0",
               i === active && "group-hover:scale-[1.03]"
             )}
@@ -46,19 +48,19 @@ export default function Gallery({ images, alt, badge }: GalleryProps) {
               aria-label={`Ver imagen ${i + 1}`}
               aria-current={i === active}
               className={cn(
-                "press h-16 w-16 rounded-seal border bg-ivory transition-all duration-300",
+                "press relative h-16 w-16 rounded-seal border bg-ivory transition-all duration-300",
                 i === active
                   ? "border-champagne-deep shadow-card"
                   : "border-hairline opacity-60 hover:opacity-100"
               )}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={src}
                 alt=""
+                fill
                 loading="lazy"
-                decoding="async"
-                className="h-full w-full object-contain p-1"
+                sizes="64px"
+                className="object-contain p-1"
               />
             </button>
           ))}

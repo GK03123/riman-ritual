@@ -181,14 +181,13 @@ export default function Testimonials() {
                   aria-label={`Ver ${product.name}`}
                 >
                   <span className="block overflow-hidden rounded-seal bg-vitrine-radial">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.name}
                       width={480}
                       height={480}
                       loading="lazy"
-                      decoding="async"
+                      sizes="220px"
                       className="mx-auto aspect-square w-full max-w-[220px] object-contain p-4 transition-transform duration-700 ease-editorial group-hover:scale-105"
                     />
                   </span>
@@ -224,17 +223,17 @@ export default function Testimonials() {
                   Cómo lo hacemos
                 </p>
                 <p className="font-display text-title font-normal italic leading-snug text-ink">
-                  Me dices cómo está tu piel y te armo la rutina con piezas del
-                  catálogo, con el porqué de cada paso.
+                  Me dices cómo está tu piel y te armo la rutina con el porqué
+                  de cada paso.
                 </p>
                 <p className="mt-3 text-note text-stone-dark">
-                  Sin registros ni correos. Tarda menos de un minuto.
+                  Tarda menos de un minuto. Sin registros ni correos.
                 </p>
                 <a
                   href="#concerns"
                   className="press group mt-6 flex min-h-[44px] w-fit items-center gap-2 bg-ink px-6 py-3.5 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
                 >
-                  Hacer mi consulta
+                  Armar mi rutina
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </>
@@ -295,9 +294,9 @@ export default function Testimonials() {
               <figure className="museum-frame photo-warm relative mx-auto w-full max-w-[260px] lg:mx-0 lg:max-w-none">
                 <Image
                   src="/founder/eilin-editorial.jpg"
-                  alt="Eilin Guependo sentada en el suelo de un estudio, con camiseta blanca y vaqueros oscuros"
-                  width={720}
-                  height={960}
+                  alt="Eilin Guependo recostada en el suelo de un estudio, con camiseta blanca y vaqueros grises"
+                  width={600}
+                  height={800}
                   loading="lazy"
                   sizes="(max-width: 1024px) 260px, 440px"
                   className="aspect-[3/4] w-full object-cover shadow-vitrine"
@@ -317,8 +316,7 @@ export default function Testimonials() {
               </p>
               <p className="mt-5 max-w-measure text-body text-stone-dark">
                 Me dices cómo está tu piel y te armo la rutina en un minuto. Si
-                prefieres verme antes, en Instagram muestro cómo armo mi rutina
-                y qué recomiendo.
+                prefieres verme antes, todo lo que uso está en mi Instagram.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -326,7 +324,7 @@ export default function Testimonials() {
                   href="#concerns"
                   className="press sheen group flex min-h-[44px] items-center gap-3 bg-ink px-7 py-4 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
                 >
-                  Empezar por aquí
+                  Armar mi rutina
                   <ArrowUpRight
                     aria-hidden
                     className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
