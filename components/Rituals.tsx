@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { RITUALS } from "@/lib/products";
 import { productUrl } from "@/lib/site";
 import { formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
@@ -191,7 +191,7 @@ export default function Rituals() {
                   className="absolute inset-x-0 top-0 z-10 h-0.5 origin-left scale-x-0 bg-champagne transition-transform duration-500 ease-editorial group-hover:scale-x-100"
                 />
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
+                  <Photo
                     src={r.image}
                     alt={r.name}
                     fill

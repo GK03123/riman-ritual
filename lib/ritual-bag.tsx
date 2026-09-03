@@ -87,7 +87,16 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
   const [stored, setStored] = useState<StoredItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
-  const hydrated = useRef(false);
+  // Bandera de estado, no ref. Con una ref el guardado se armaba en la
+  // misma pasada de efectos que la lectura: el efecto de escritura corría
+  // a continuación con `stored` todavía vacío y con la bandera ya en true,
+  // así que lo primero que hacía cada carga era escribir `[]` encima de la
+  // rutina guardada. En producción se salvaba de milagro (la lectura ya
+  // había ocurrido y el siguiente render volvía a escribir la lista), pero
+  // con StrictMode el segundo montaje leía el hueco y la bolsa se vaciaba
+  // en cada recarga. Con estado, la escritura no se arma hasta que el
+  // render lleva ya la lista leída.
+  const [hydrated, setHydrated] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
@@ -95,17 +104,17 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
   // desajustes con el HTML del servidor).
   useEffect(() => {
     setStored(readStorage());
-    hydrated.current = true;
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
-    if (!hydrated.current) return;
+    if (!hydrated) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
     } catch {
       /* almacenamiento lleno o bloqueado: la bolsa sigue en memoria */
     }
-  }, [stored]);
+  }, [stored, hydrated]);
 
   // Al navegar, el panel se cierra para no tapar la página nueva.
   useEffect(() => {

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { BESTSELLERS } from "@/lib/products";
+import Photo from "./Photo";
 import ProductCard from "./ProductCard";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
@@ -45,7 +45,7 @@ export default function Bestsellers() {
 
         <Reveal delay={0.1}>
           <figure className="relative aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[5/4]">
-            <Image
+            <Photo
               src="/founder/eilin-manos.webp"
               alt="Eilin Guependo sostiene un tarro y un frasco de RIMAN con las dos manos"
               fill

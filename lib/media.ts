@@ -47,3 +47,15 @@ export const STORY_FRAMES = [
   },
 ] as const;
 
+/** Recursos que no se montan hasta que alguien los pide.
+ *
+ *  Los GIF del CDN de RIMAN son animaciones de producto sin comprimir:
+ *  el de Snow Enzyme son 146 fotogramas y 8,8 MB para pintar 348×448 px,
+ *  y el de Suamel, 7,6 MB. Viven como una diapositiva más de la galería,
+ *  y como la miniatura comparte URL con la diapositiva, tenerlas montadas
+ *  de salida obligaba a descargarlas enteras solo por abrir la ficha.
+ *
+ *  Con esto, esas diapositivas entran al pulsarlas. El resto del catálogo
+ *  (PNG de unos 90 KB) se comporta igual que siempre. */
+export const isDeferredAsset = (src: string): boolean =>
+  src.toLowerCase().endsWith(".gif");

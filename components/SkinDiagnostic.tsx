@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
@@ -23,6 +22,7 @@ import { useProductDrawer } from "@/lib/product-drawer";
 import { useRitualBag } from "@/lib/ritual-bag";
 import { EASE, SPRING_TAP } from "@/lib/motion";
 import { cn, formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
@@ -222,7 +222,7 @@ export default function SkinDiagnostic() {
                 la única pieza redonda de la página. */}
             <figure className="flex items-start gap-5">
               <span className="photo-warm relative block w-[88px] shrink-0 overflow-hidden border border-hairline sm:w-[108px]">
-                <Image
+                <Photo
                   src="/founder/eilin-mirada.jpg"
                   alt="Primer plano de Eilin Guependo, que es quien responde la consulta"
                   width={560}
@@ -367,7 +367,7 @@ export default function SkinDiagnostic() {
                           aria-label={`Ver ficha de ${s.product.name}`}
                           className="press h-[72px] w-[72px] shrink-0 rounded-seal bg-vitrine-radial sm:h-24 sm:w-24"
                         >
-                          <Image
+                          <Photo
                             src={s.product.image}
                             alt={s.product.name}
                             width={192}
@@ -467,7 +467,7 @@ export default function SkinDiagnostic() {
                         aria-label={`Ver ficha de ${plan.extra.product.name}`}
                         className="press relative h-24 w-24 shrink-0 overflow-hidden rounded-seal border border-hairline bg-ivory"
                       >
-                        <Image
+                        <Photo
                           src={plan.extra.product.image}
                           alt={plan.extra.product.name}
                           fill
@@ -514,7 +514,7 @@ export default function SkinDiagnostic() {
                         aria-label={`Ver ficha de ${plan.kit.name}`}
                         className="press relative h-28 w-28 shrink-0 overflow-hidden rounded-seal border border-hairline bg-ivory"
                       >
-                        <Image
+                        <Photo
                           src={plan.kit.image}
                           alt={plan.kit.name}
                           fill

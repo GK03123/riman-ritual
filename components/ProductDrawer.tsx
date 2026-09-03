@@ -1,29 +1,52 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ArrowUpRight, Truck, ShieldCheck, PackageOpen } from "lucide-react";
 import { useProductDrawer } from "@/lib/product-drawer";
 import { PRODUCTS } from "@/lib/products";
 import { productUrl } from "@/lib/site";
+import { isDeferredAsset } from "@/lib/media";
 import { eilinNote } from "@/lib/notes";
 import { EASE, SPRING_PANEL } from "@/lib/motion";
+import { useFocusTrap } from "@/lib/focus-trap";
 import { cn, formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 import SaveButton from "./SaveButton";
 
 export default function ProductDrawer() {
   const { product, open, close } = useProductDrawer();
   const [activeImg, setActiveImg] = useState(0);
+  const [mountedImgs, setMountedImgs] = useState<number[]>([]);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
   const wasOpen = useRef(false);
 
+  // aria-modal="true" promete que detrás no hay nada; el tabulador lo cumple.
+  useFocusTrap(!!product, panelRef);
+
+  const gallery = useMemo(
+    () =>
+      product?.gallery?.length
+        ? product.gallery
+        : product?.image
+          ? [product.image]
+          : [],
+    [product]
+  );
+
   // Al cambiar de producto (abrir, o saltar desde "Complementa la rutina")
-  // la galería vuelve a la primera imagen.
+  // la galería vuelve a la primera imagen. Y se rearma qué diapositivas
+  // entran de salida: las diferidas (ver isDeferredAsset) esperan a que
+  // alguien las pida.
   useEffect(() => {
     setActiveImg(0);
-  }, [product?.id]);
+    setMountedImgs(gallery.flatMap((src, i) => (isDeferredAsset(src) ? [] : [i])));
+  }, [gallery]);
+
+  const warmImg = (i: number) =>
+    setMountedImgs((m) => (m.includes(i) ? m : [...m, i]));
 
   // Foco: al abrir se mueve al botón de cerrar; al cerrar vuelve
   // al elemento que abrió la ficha.
@@ -38,7 +61,6 @@ export default function ProductDrawer() {
     }
   }, [product]);
 
-  const gallery = product?.gallery?.length ? product.gallery : product?.image ? [product.image] : [];
   const note = product ? eilinNote(product.id) : null;
 
   const complements = useMemo(() => {
@@ -73,6 +95,7 @@ export default function ProductDrawer() {
           />
           <motion.aside
             key="panel"
+            ref={panelRef}
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
@@ -103,19 +126,21 @@ export default function ProductDrawer() {
                 {/* gallery */}
                 <motion.div {...rise(0.1)} className="relative bg-vitrine-radial">
                   <div className="relative aspect-square">
-                    {gallery.map((src, i) => (
-                      <Image
-                        key={src}
-                        src={src}
-                        alt={product.name}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 360px"
-                        className={cn(
-                          "object-contain p-10 transition-opacity duration-500",
-                          i === activeImg ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                    ))}
+                    {gallery.map((src, i) =>
+                      mountedImgs.includes(i) ? (
+                        <Photo
+                          key={src}
+                          src={src}
+                          alt={product.name}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 360px"
+                          className={cn(
+                            "object-contain p-10 transition-opacity duration-500",
+                            i === activeImg ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      ) : null
+                    )}
                     {product.bestsellerRank !== null && (
                       <span className="absolute left-5 top-5 bg-ink px-3 py-1.5 text-micro uppercase text-ivory">
                         Bestseller Nº {product.bestsellerRank}
@@ -127,15 +152,31 @@ export default function ProductDrawer() {
                       {gallery.map((src, i) => (
                         <button
                           key={src}
-                          onClick={() => setActiveImg(i)}
+                          /* Montar en pointerdown y no en el clic deja que
+                             la diapositiva entre un fotograma antes, así el
+                             fundido sigue corriendo como en las demás. */
+                          onPointerDown={() => warmImg(i)}
+                          onClick={() => {
+                            warmImg(i);
+                            setActiveImg(i);
+                          }}
                           className={cn(
-                            "press relative h-14 w-14 rounded-seal border transition-all",
+                            "press relative h-14 w-14 overflow-hidden rounded-seal border transition-all",
                             i === activeImg ? "border-ink" : "border-hairline opacity-60 hover:opacity-100"
                           )}
                           aria-label={`Ver imagen ${i + 1}`}
                           aria-current={i === activeImg}
                         >
-                          <Image src={src} alt="" fill sizes="56px" className="object-contain p-1" loading="lazy" />
+                          {mountedImgs.includes(i) ? (
+                            <Photo src={src} alt="" fill sizes="56px" className="object-contain p-1" loading="lazy" />
+                          ) : (
+                            <span
+                              aria-hidden
+                              className="flex h-full w-full items-center justify-center bg-vitrine-radial"
+                            >
+                              <span className="block h-2 w-2 rotate-45 border border-champagne/45" />
+                            </span>
+                          )}
                         </button>
                       ))}
                     </div>
@@ -174,10 +215,10 @@ export default function ProductDrawer() {
                   )}
                   {note && product.description && (
                     <details className="group/desc">
-                      <summary className="cursor-pointer list-none text-micro uppercase tracking-wide2 text-stone transition-colors hover:text-champagne-deep">
+                      <summary className="cursor-pointer list-none text-micro uppercase tracking-wide2 text-stone-dark transition-colors hover:text-champagne-deep">
                         Descripción original de la marca +
                       </summary>
-                      <p className="mt-2 text-xs leading-relaxed text-stone">
+                      <p className="mt-2 text-xs leading-relaxed text-stone-dark">
                         {product.description}
                       </p>
                     </details>
@@ -239,7 +280,7 @@ export default function ProductDrawer() {
                         onClick={() => open(c)}
                         className="press group flex flex-col rounded-vitrine border border-hairline bg-ivory p-3 text-left transition-all duration-300 ease-editorial hover:-translate-y-0.5 hover:border-champagne/40 hover:shadow-card"
                       >
-                        <Image
+                        <Photo
                           src={c.image}
                           alt={c.name}
                           width={240}
@@ -274,7 +315,7 @@ export default function ProductDrawer() {
                 href={productUrl(product.id)}
                 target="_blank"
                 rel="noopener sponsored"
-                className="press group flex shrink-0 items-center gap-2 bg-ink px-6 py-3.5 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
+                className="press group flex min-h-[44px] shrink-0 items-center gap-2 bg-ink px-6 py-3.5 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
               >
                 Comprar
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

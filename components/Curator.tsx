@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Instagram } from "lucide-react";
 import { PRODUCTS, type Product } from "@/lib/products";
@@ -9,6 +8,7 @@ import { SITE, instagramHandle, productUrl } from "@/lib/site";
 import { useProductDrawer } from "@/lib/product-drawer";
 import { EASE } from "@/lib/motion";
 import { formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 import InstagramLink from "./InstagramLink";
 import Reveal from "./Reveal";
 import SaveButton from "./SaveButton";
@@ -62,7 +62,7 @@ function PickRow({
         aria-label={`Ver ficha de ${product.name}`}
         className="press h-20 w-20 shrink-0 overflow-hidden rounded-seal bg-vitrine-radial sm:h-24 sm:w-24"
       >
-        <Image
+        <Photo
           src={product.image}
           alt={product.name}
           width={192}
@@ -162,7 +162,7 @@ export default function Curator() {
             transition={{ duration: 1.1, ease: EASE }}
             className="museum-frame photo-warm relative mt-10 max-w-sm"
           >
-            <Image
+            <Photo
               src="/founder/eilin-retrato.jpg"
               alt="Eilin Guependo sentada en el suelo de un estudio, con camiseta blanca y vaqueros grises, mirando a cámara"
               width={640}
@@ -223,7 +223,7 @@ export default function Curator() {
                 está el producto cuando nadie mira. */}
             <blockquote className="my-8 border-l-2 border-champagne-deep/60 py-1 pl-6">
               <p className="pull-quote font-display text-title font-normal italic leading-snug text-ink">
-                Está todo RIMAN. Lo mío es decirte por dónde empezar
+                Está todo RIMAN. Lo mío es decirte por dónde empezar.
               </p>
             </blockquote>
 

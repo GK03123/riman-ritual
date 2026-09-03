@@ -11,7 +11,6 @@
 // cola del ranking y para el catálogo completo.
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { type Product } from "@/lib/products";
@@ -20,6 +19,7 @@ import { benefitLabel } from "@/lib/merch";
 import { eilinNote } from "@/lib/notes";
 import { useProductDrawer } from "@/lib/product-drawer";
 import { cn, formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 import SaveButton from "./SaveButton";
 
 type Variant = "grid" | "duo" | "featured";
@@ -128,12 +128,19 @@ export default function ProductCard({
             Pasarlas por el optimizador de Next las sirve en AVIF y en la
             medida que pide cada `sizes`, que es de donde sale casi toda la
             bajada de peso de la página. */}
-        <Image
+        {/* La pieza destacada iba en `eager`. Con eso Next le emitía su
+            propio <link rel="preload">, y en un móvil frenado esa PNG de
+            85 KB salía del puerto a la vez que el retrato de portada, que
+            es el LCP: los dos terminaban a la vez, sobre los 3,5 s, en vez
+            de terminar uno y después el otro. El capítulo 02 empieza por
+            debajo del pliegue en cualquier pantalla, así que la carga
+            diferida nativa la trae de sobra a tiempo. */}
+        <Photo
           src={product.image}
           alt={product.name}
           width={600}
           height={600}
-          loading={featured ? "eager" : "lazy"}
+          loading="lazy"
           sizes={sizes}
           className={cn(
             "relative z-10 h-full w-full object-contain transition-all duration-700 ease-editorial",
@@ -142,7 +149,7 @@ export default function ProductCard({
           )}
         />
         {hasAlt && (
-          <Image
+          <Photo
             src={product.imageAlt!}
             alt=""
             aria-hidden

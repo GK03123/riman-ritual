@@ -24,6 +24,15 @@ import { EASE } from "@/lib/motion";
 export default function JejuFilm() {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  // `near`: el capítulo se acerca, así que ya se puede pedir el fotograma
+  // de póster. `armed`: además hay permiso para que se mueva.
+  //
+  // Iban juntos, y el póster vivía en el atributo del <video> desde el
+  // primer HTML. Un `poster` se descarga siempre, aunque el vídeo lleve
+  // `preload="none"`: en un móvil frenado esos 69 KB salían a los 300 ms,
+  // en plena carrera por el retrato de portada, para pintar un capítulo
+  // que está a cinco pantallas de distancia.
+  const [near, setNear] = useState(false);
   const [armed, setArmed] = useState(false);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -37,12 +46,15 @@ export default function JejuFilm() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Quien pide menos movimiento se queda con el póster fijo, que es
+    // exactamente lo que pide la preferencia: el vídeo no se arma nunca.
+    const quiet = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return;
-        setArmed(true);
+        setNear(true);
+        if (!quiet) setArmed(true);
         io.disconnect();
       },
       { rootMargin: "400px" }
@@ -81,7 +93,7 @@ export default function JejuFilm() {
           loop
           playsInline
           preload="none"
-          poster={MEDIA.jejuPoster}
+          poster={near ? MEDIA.jejuPoster : undefined}
           className="h-full w-full object-cover"
         >
           {armed && (

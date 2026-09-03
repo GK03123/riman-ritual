@@ -15,7 +15,6 @@
 // congelada a media transición.
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -28,6 +27,7 @@ import { PRODUCTS } from "@/lib/products";
 import { SITE, instagramHandle, productUrl } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 import { formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 import InstagramLink from "./InstagramLink";
 import Reveal from "./Reveal";
 import Signature from "./Signature";
@@ -181,7 +181,7 @@ export default function Testimonials() {
                   aria-label={`Ver ${product.name}`}
                 >
                   <span className="block overflow-hidden rounded-seal bg-vitrine-radial">
-                    <Image
+                    <Photo
                       src={product.image}
                       alt={product.name}
                       width={480}
@@ -292,7 +292,7 @@ export default function Testimonials() {
           <div className="grid items-center gap-10 lg:grid-cols-[0.58fr_1fr] lg:gap-16">
             <Reveal>
               <figure className="museum-frame photo-warm relative mx-auto w-full max-w-[260px] lg:mx-0 lg:max-w-none">
-                <Image
+                <Photo
                   src="/founder/eilin-editorial.jpg"
                   alt="Eilin Guependo recostada en el suelo de un estudio, con camiseta blanca y vaqueros grises"
                   width={600}

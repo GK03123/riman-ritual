@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, PackageOpen, ShieldCheck, Truck, Undo2 } from "lucide-react";
@@ -8,6 +7,7 @@ import { SITE, productUrl } from "@/lib/site";
 import { benefitLabel, phaseLabel } from "@/lib/merch";
 import { eilinNote } from "@/lib/notes";
 import { formatPrice } from "@/lib/utils";
+import Photo from "@/components/Photo";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -142,7 +142,9 @@ export default function ProductPage({ params }: Props) {
         <nav aria-label="Volver" className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 py-2 text-label uppercase text-stone-dark transition-colors hover:text-champagne-deep"
+            /* -my-1.5 compensa lo que crece la caja al llegar a 44 px:
+               el área táctil sube y la maqueta se queda donde estaba. */
+            className="-my-1.5 inline-flex min-h-[44px] items-center gap-2 py-2 text-label uppercase text-stone-dark transition-colors hover:text-champagne-deep"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Volver a la boutique
           </Link>
@@ -201,10 +203,10 @@ export default function ProductPage({ params }: Props) {
             )}
             {note && product.description && (
               <details>
-                <summary className="cursor-pointer list-none text-micro uppercase tracking-wide2 text-stone transition-colors hover:text-champagne-deep">
+                <summary className="cursor-pointer list-none text-micro uppercase tracking-wide2 text-stone-dark transition-colors hover:text-champagne-deep">
                   Descripción original de la marca +
                 </summary>
-                <p className="mt-2 max-w-prose text-xs leading-relaxed text-stone">
+                <p className="mt-2 max-w-prose text-xs leading-relaxed text-stone-dark">
                   {product.description}
                 </p>
               </details>
@@ -272,7 +274,7 @@ export default function ProductPage({ params }: Props) {
                   href={`/producto/${c.id}`}
                   className="group flex flex-col rounded-vitrine border border-hairline bg-ivory p-4 transition-all duration-500 ease-editorial hover:-translate-y-1 hover:border-champagne/40 hover:shadow-cardHover"
                 >
-                  <Image
+                  <Photo
                     src={c.image}
                     alt={c.name}
                     width={400}
@@ -315,7 +317,7 @@ export default function ProductPage({ params }: Props) {
           href={productUrl(product.id)}
           target="_blank"
           rel="noopener sponsored"
-          className="press group flex shrink-0 items-center gap-2 bg-ink px-6 py-3.5 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
+          className="press group flex min-h-[44px] shrink-0 items-center gap-2 bg-ink px-6 py-3.5 text-label uppercase text-ivory transition-colors duration-300 hover:bg-champagne-deep"
         >
           Comprar
           <ArrowUpRight className="h-3.5 w-3.5" />

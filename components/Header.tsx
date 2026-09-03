@@ -61,7 +61,13 @@ export default function Header() {
             y la primera línea de la portada ya dicen qué se vende aquí, y
             en 375 px el nombre partía en dos renglones para dejar sitio a
             una línea que nadie lee. */}
-        <Link href="/" className="group flex items-center leading-none">
+        <Link
+          href="/"
+          /* El wordmark es el enlace a la portada y medía 19 px de alto:
+             por debajo del mínimo de 24×24 de WCAG 2.2. La altura no
+             mueve nada porque la barra ya centra su contenido. */
+          className="group flex min-h-[44px] items-center leading-none"
+        >
           <span className="whitespace-nowrap font-display text-[19px] font-medium tracking-[0.1em] transition-colors duration-300 group-hover:text-champagne-deep sm:text-2xl">
             {SITE.brandName.toUpperCase()}
           </span>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -17,14 +16,20 @@ import { useRitualBag } from "@/lib/ritual-bag";
 import { BESTSELLERS } from "@/lib/products";
 import { SITE, productUrl } from "@/lib/site";
 import { SPRING_PANEL } from "@/lib/motion";
+import { useFocusTrap } from "@/lib/focus-trap";
 import { formatPrice } from "@/lib/utils";
+import Photo from "./Photo";
 
 export default function BagDrawer() {
   const { items, count, subtotal, isOpen, closeBag, add, remove, setQty } =
     useRitualBag();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
   const wasOpen = useRef(false);
+
+  // aria-modal="true" promete que detrás no hay nada; el tabulador lo cumple.
+  useFocusTrap(isOpen, panelRef);
 
   // Foco accesible: entra al botón de cerrar, vuelve a quien abrió.
   useEffect(() => {
@@ -77,6 +82,7 @@ export default function BagDrawer() {
           />
           <motion.aside
             key="bag-panel"
+            ref={panelRef}
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
@@ -159,7 +165,7 @@ export default function BagDrawer() {
                           className="relative h-20 w-20 shrink-0 rounded-seal border border-hairline bg-vitrine-radial"
                           aria-label={`Ver ${it.product.name}`}
                         >
-                          <Image
+                          <Photo
                             src={it.product.image}
                             alt={it.product.name}
                             fill
@@ -235,7 +241,7 @@ export default function BagDrawer() {
                       Completa tu rutina
                     </p>
                     <div className="flex items-center gap-3">
-                      <Image
+                      <Photo
                         src={suggestion.image}
                         alt={suggestion.name}
                         width={96}

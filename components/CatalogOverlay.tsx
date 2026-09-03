@@ -7,6 +7,7 @@ import { PRODUCTS, RITUAL_IDS, CATEGORY, type Product } from "@/lib/products";
 import { useCatalog } from "@/lib/catalog-overlay";
 import { benefitLabel } from "@/lib/merch";
 import { EASE } from "@/lib/motion";
+import { useFocusTrap } from "@/lib/focus-trap";
 import ProductCard from "./ProductCard";
 import { cn } from "@/lib/utils";
 
@@ -90,8 +91,12 @@ export default function CatalogOverlay() {
   const [filter, setFilter] = useState<Filter>("todos");
   const [query, setQuery] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
   const wasOpen = useRef(false);
+
+  // aria-modal="true" promete que detrás no hay nada; el tabulador lo cumple.
+  useFocusTrap(open, panelRef);
 
   const q = norm(query.trim());
   const visible = useMemo(
@@ -119,6 +124,7 @@ export default function CatalogOverlay() {
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={panelRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -165,7 +171,7 @@ export default function CatalogOverlay() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Busca «crema», «sérum», «kit»…"
-                  className="w-full border-b border-ink/20 bg-transparent py-2.5 pl-7 pr-2 text-base text-ink placeholder:text-stone focus:border-champagne-deep focus:outline-none"
+                  className="w-full border-b border-ink/20 bg-transparent py-2.5 pl-7 pr-2 text-base text-ink placeholder:text-stone-dark focus:border-champagne-deep focus:outline-none"
                 />
               </label>
               <div className="overflow-x-auto">
@@ -209,7 +215,7 @@ export default function CatalogOverlay() {
                   </span>
                   <p className="max-w-sm text-sm leading-relaxed text-stone-dark">
                     {q
-                      ? `Ninguna pieza coincide con "${query.trim()}". Prueba con otra palabra o revisa las categorías.`
+                      ? `Ninguna pieza coincide con «${query.trim()}». Prueba con otra palabra o revisa las categorías.`
                       : "No hay piezas en esta categoría por el momento."}
                   </p>
                   {(q || filter !== "todos") && (

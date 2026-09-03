@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Eilin Guependo">
+  <rect width="32" height="32" fill="#1A1A18"/>
+  <!-- La E del masthead reducida a lo que sobrevive a 16 px: asta gruesa
+       y tres brazos finos, el contraste de una didone sin los remates que
+       a ese tamaño solo ensucian. -->
+  <g fill="#DFC48C">
+    <rect x="9" y="7" width="4" height="18"/>
+    <rect x="9" y="7" width="14" height="2.6"/>
+    <rect x="9" y="14.9" width="10" height="2.2"/>
+    <rect x="9" y="22.4" width="14" height="2.6"/>
+  </g>
+</svg>

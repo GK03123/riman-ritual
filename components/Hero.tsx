@@ -25,7 +25,6 @@
 // que es scroll y por definición ya necesita JavaScript.
 
 import { useRef } from "react";
-import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -34,6 +33,7 @@ import {
 } from "framer-motion";
 import { ArrowUpRight, Instagram } from "lucide-react";
 import { instagramHandle } from "@/lib/site";
+import Photo from "./Photo";
 import Magnetic from "./motion/Magnetic";
 import InstagramLink from "./InstagramLink";
 
@@ -124,7 +124,7 @@ export default function Hero() {
                    asomando por el canto inferior se lee como un error. */
                 className="cover-figure relative mx-auto aspect-[4/3] w-full sm:aspect-[3/2] lg:aspect-[872/1236] lg:max-w-none"
               >
-                <Image
+                <Photo
                   src="/founder/eilin-gesto.webp"
                   alt="Eilin Guependo, de perfil y con los ojos cerrados, sostiene en alto un frasco de RIMAN"
                   fill
