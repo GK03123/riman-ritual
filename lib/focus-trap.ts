@@ -15,6 +15,32 @@
 
 import { useEffect, type RefObject } from "react";
 
+/** Devuelve el foco a quien abrió el panel.
+ *
+ *  No basta con guardar el elemento y llamar a focus(): en móvil, "Ver el
+ *  catálogo" vive dentro del menú desplegable, que se cierra al abrirse el
+ *  catálogo. Para cuando el catálogo se cierra, ese botón ya no está en el
+ *  documento, focus() no hace nada y el foco se queda en el cuerpo: la
+ *  siguiente tabulación empieza otra vez por "Saltar al contenido".
+ *
+ *  Si el control original ya no está, el foco va al que abre lo mismo
+ *  desde la cabecera, que no se va nunca de la pantalla. */
+export function restoreFocus(
+  previous: HTMLElement | null,
+  fallbackSelector?: string
+): void {
+  // El cuerpo cuenta como "está en el documento", pero devolverle el foco
+  // es lo mismo que perderlo: la siguiente tabulación empieza de cero.
+  const usable =
+    previous && previous !== document.body && document.contains(previous);
+  const target = usable
+    ? previous
+    : fallbackSelector
+      ? document.querySelector<HTMLElement>(fallbackSelector)
+      : null;
+  target?.focus();
+}
+
 /** Los que pueden recibir foco de verdad: los deshabilitados y los que
  *  se sacan del orden con tabindex negativo no cuentan. */
 const FOCUSABLE = [

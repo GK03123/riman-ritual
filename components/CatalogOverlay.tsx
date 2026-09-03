@@ -7,7 +7,7 @@ import { PRODUCTS, RITUAL_IDS, CATEGORY, type Product } from "@/lib/products";
 import { useCatalog } from "@/lib/catalog-overlay";
 import { benefitLabel } from "@/lib/merch";
 import { EASE } from "@/lib/motion";
-import { useFocusTrap } from "@/lib/focus-trap";
+import { restoreFocus, useFocusTrap } from "@/lib/focus-trap";
 import ProductCard from "./ProductCard";
 import { cn } from "@/lib/utils";
 
@@ -116,7 +116,9 @@ export default function CatalogOverlay() {
       searchRef.current?.focus();
     } else if (!open && wasOpen.current) {
       wasOpen.current = false;
-      lastFocus.current?.focus();
+      // En móvil el catálogo se abre desde el menú desplegable, que se
+      // cierra al abrirlo: para cuando volvemos, ese botón ya no está.
+      restoreFocus(lastFocus.current, '[aria-label="Buscar en el catálogo"]');
     }
   }, [open]);
 

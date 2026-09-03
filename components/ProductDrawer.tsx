@@ -9,7 +9,7 @@ import { productUrl } from "@/lib/site";
 import { isDeferredAsset } from "@/lib/media";
 import { eilinNote } from "@/lib/notes";
 import { EASE, SPRING_PANEL } from "@/lib/motion";
-import { useFocusTrap } from "@/lib/focus-trap";
+import { restoreFocus, useFocusTrap } from "@/lib/focus-trap";
 import { cn, formatPrice } from "@/lib/utils";
 import Photo from "./Photo";
 import SaveButton from "./SaveButton";
@@ -57,7 +57,7 @@ export default function ProductDrawer() {
       closeRef.current?.focus();
     } else if (!product && wasOpen.current) {
       wasOpen.current = false;
-      lastFocus.current?.focus();
+      restoreFocus(lastFocus.current, '[aria-label="Buscar en el catálogo"]');
     }
   }, [product]);
 

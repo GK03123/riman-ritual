@@ -16,7 +16,7 @@ import { useRitualBag } from "@/lib/ritual-bag";
 import { BESTSELLERS } from "@/lib/products";
 import { SITE, productUrl } from "@/lib/site";
 import { SPRING_PANEL } from "@/lib/motion";
-import { useFocusTrap } from "@/lib/focus-trap";
+import { restoreFocus, useFocusTrap } from "@/lib/focus-trap";
 import { formatPrice } from "@/lib/utils";
 import Photo from "./Photo";
 
@@ -39,7 +39,7 @@ export default function BagDrawer() {
       closeRef.current?.focus();
     } else if (!isOpen && wasOpen.current) {
       wasOpen.current = false;
-      lastFocus.current?.focus();
+      restoreFocus(lastFocus.current, '[aria-label^="Abrir mi rutina"]');
     }
   }, [isOpen]);
 
