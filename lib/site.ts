@@ -37,6 +37,14 @@ export const SITE = {
   // Promo vigente en la tienda destino. Editar o dejar "" para mostrar
   // los mensajes permanentes de la barra (envío, garantía, devoluciones).
   promo: "",
+
+  // Píxel de Meta (Facebook e Instagram): cuenta las visitas y mide las
+  // campañas de publicidad. El identificador es público, se lee en el
+  // código de cualquier página que lo lleve, así que vive aquí y no en
+  // una variable de entorno. Dejar "" y no se carga nada: ni el script,
+  // ni la petición, ni la imagen de reserva para quien no tenga
+  // JavaScript.
+  metaPixelId: "1052599583923583",
 } as const;
 
 export function productUrl(id: number): string {

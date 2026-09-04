@@ -5,6 +5,7 @@ import { ProductDrawerProvider } from "@/lib/product-drawer";
 import { CatalogProvider } from "@/lib/catalog-overlay";
 import { RitualBagProvider } from "@/lib/ritual-bag";
 import MotionProvider from "@/components/motion/MotionProvider";
+import MetaPixel from "@/components/MetaPixel";
 import ProductDrawer from "@/components/ProductDrawer";
 import CatalogOverlay from "@/components/CatalogOverlay";
 import BagDrawer from "@/components/BagDrawer";
@@ -115,6 +116,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className="font-sans">
+        <MetaPixel />
         <a
           href="#contenido"
           /* Al recibir foco tiene que ser un objetivo de 44 px como

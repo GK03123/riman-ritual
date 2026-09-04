@@ -114,6 +114,18 @@ export default function Footer() {
             productos, imágenes y marcas registradas pertenecen a sus
             respectivos propietarios.
           </p>
+          {/* Aviso de medición. Meta exige en sus condiciones de uso que
+              quien instala el píxel avise de que lo lleva, y a mí me
+              parece de cajón decirlo donde ya está la letra pequeña. Si se
+              vacía `metaPixelId` en lib/site.ts, esta línea desaparece
+              con el píxel. */}
+          {SITE.metaPixelId && (
+            <p className="mt-4 max-w-3xl text-xs leading-relaxed text-ivory/60">
+              Uso el píxel de Meta para contar visitas y medir mis campañas.
+              Puedes limitarlo desde la configuración de anuncios de tu
+              cuenta de Facebook o de Instagram.
+            </p>
+          )}
           <p className="mt-6 text-micro uppercase text-ivory/55">
             © {new Date().getFullYear()} {SITE.brandName}
           </p>
