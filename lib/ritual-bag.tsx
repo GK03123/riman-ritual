@@ -17,6 +17,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { guardarEnRutina } from "./pixel";
 import { PRODUCTS, type Product } from "./products";
 
 const STORAGE_KEY = "eg-mi-ritual-v1";
@@ -155,6 +156,7 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
         return [...prev, { id: p.id, qty: 1 }];
       });
       showToast("Guardado en tu rutina");
+      guardarEnRutina([p]);
     },
     [showToast]
   );
@@ -173,6 +175,7 @@ export function RitualBagProvider({ children }: { children: React.ReactNode }) {
       showToast(
         ps.length === 1 ? "Guardado en tu rutina" : "Rutina guardada"
       );
+      guardarEnRutina(ps);
     },
     [showToast]
   );

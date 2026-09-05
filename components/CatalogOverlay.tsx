@@ -6,6 +6,7 @@ import { X, Search } from "lucide-react";
 import { PRODUCTS, RITUAL_IDS, CATEGORY, type Product } from "@/lib/products";
 import { useCatalog } from "@/lib/catalog-overlay";
 import { benefitLabel } from "@/lib/merch";
+import { buscarEnCatalogo } from "@/lib/pixel";
 import { EASE } from "@/lib/motion";
 import { restoreFocus, useFocusTrap } from "@/lib/focus-trap";
 import ProductCard from "./ProductCard";
@@ -106,6 +107,15 @@ export default function CatalogOverlay() {
       ),
     [filter, q]
   );
+
+  // Cuánta gente busca, y cuánta se queda sin resultados. Con espera:
+  // sin ella se mandaría un evento por cada tecla. El término en sí no
+  // llega, lo filtra el script de Meta (ver lib/pixel.ts).
+  useEffect(() => {
+    if (!open || q.length < 3) return;
+    const t = setTimeout(() => buscarEnCatalogo(q, visible.length), 900);
+    return () => clearTimeout(t);
+  }, [open, q, visible.length]);
 
   useEffect(() => {
     if (open && !wasOpen.current) {

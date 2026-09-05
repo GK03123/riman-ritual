@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
@@ -19,6 +19,7 @@ import {
 import { buildRoutine, type Answers, type Goal, type Level, type SkinType } from "@/lib/routine";
 import { SITE, productUrl } from "@/lib/site";
 import { useProductDrawer } from "@/lib/product-drawer";
+import { rutinaArmada } from "@/lib/pixel";
 import { useRitualBag } from "@/lib/ritual-bag";
 import { EASE, SPRING_TAP } from "@/lib/motion";
 import { cn, formatPrice } from "@/lib/utils";
@@ -75,6 +76,14 @@ export default function SkinDiagnostic() {
     }
     return null;
   }, [stage, skin, goal, level]);
+
+  // Terminar la consulta es la señal de intención más fuerte de la
+  // página, y la única que trae un valor en dólares que Meta puede usar
+  // para optimizar. Va en un efecto y no en el clic de la tercera
+  // respuesta porque el plan se calcula después, al pasar a la etapa 3.
+  useEffect(() => {
+    if (plan) rutinaArmada(plan.steps.map((s) => s.product), plan.total);
+  }, [plan]);
 
   const restart = () => {
     setStage(0);

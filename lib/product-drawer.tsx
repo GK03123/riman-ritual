@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { type Product } from "@/lib/products";
+import { verProducto } from "@/lib/pixel";
 
 interface DrawerCtx {
   product: Product | null;
@@ -20,7 +21,11 @@ export function ProductDrawerProvider({ children }: { children: React.ReactNode 
   const [product, setProduct] = useState<Product | null>(null);
   const pathname = usePathname();
 
-  const open = useCallback((p: Product) => setProduct(p), []);
+  // Abrir la ficha rápida es ver el producto igual que abrir su página.
+  const open = useCallback((p: Product) => {
+    setProduct(p);
+    verProducto(p);
+  }, []);
   const close = useCallback(() => setProduct(null), []);
 
   // Al cambiar de ruta la ficha se cierra para no tapar la página nueva.
